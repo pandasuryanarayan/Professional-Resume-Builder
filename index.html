@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Resume Builder</title>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    
+    <!-- Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- jsPDF for PDF generation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            /* Fallback gradient if image fails */
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            /* Use the uploaded image if available */
+            background-image: url('Resume.jpg'); 
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            min-height: 100vh;
+        }
+
+        /* Glassmorphism effect for the container */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        }
+
+        /* Transition for steps */
+        .step-content {
+            transition: all 0.3s ease-in-out;
+        }
+
+        /* Custom scrollbar for textareas */
+        textarea::-webkit-scrollbar {
+            width: 8px;
+        }
+        textarea::-webkit-scrollbar-track {
+            background: #f1f1f1; 
+        }
+        textarea::-webkit-scrollbar-thumb {
+            background: #cbd5e1; 
+            border-radius: 4px;
+        }
+        textarea::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8; 
+        }
+        
+        /* Smooth fade in */
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="flex flex-col items-center justify-center p-4">
+
+    <!-- Main Application Container -->
+    <div id="app" class="w-full max-w-3xl glass-panel rounded-2xl overflow-hidden relative fade-in">
+        
+        <!-- Header / Progress Bar (Hidden on Landing) -->
+        <div id="header-section" class="hidden bg-slate-800 text-white p-6">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-xl font-bold"><i class="fas fa-file-alt mr-2"></i>Resume Builder</h2>
+                <span id="step-indicator" class="text-sm font-medium bg-slate-700 px-3 py-1 rounded-full">Step 1 of 3</span>
+            </div>
+            <!-- Progress Bar -->
+            <div class="w-full bg-slate-700 rounded-full h-2.5">
+                <div id="progress-bar" class="bg-green-500 h-2.5 rounded-full transition-all duration-500" style="width: 33%"></div>
+            </div>
+        </div>
+
+        <div class="p-8 md:p-10">
+
+            <!-- STEP 0: Landing Page -->
+            <div id="step-landing" class="step-content text-center py-10">
+                <div class="mb-6 inline-block p-4 bg-green-100 rounded-full text-green-600">
+                    <i class="fas fa-id-card text-5xl"></i>
+                </div>
+                <h1 class="text-4xl font-extrabold text-slate-800 mb-4">Build Your Professional Resume</h1>
+                <p class="text-slate-600 mb-8 max-w-lg mx-auto text-lg">
+                    Create a standout resume in minutes. No sign-up required. Just fill in your details and download your PDF.
+                </p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-left mb-10 max-w-2xl mx-auto">
+                    <div class="bg-white p-4 rounded-lg shadow-sm border border-slate-100">
+                        <i class="fas fa-bolt text-yellow-500 mb-2"></i>
+                        <h3 class="font-bold text-slate-700">Fast & Easy</h3>
+                        <p class="text-sm text-slate-500">Simple wizard format to guide you through.</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-sm border border-slate-100">
+                        <i class="fas fa-shield-alt text-blue-500 mb-2"></i>
+                        <h3 class="font-bold text-slate-700">Private</h3>
+                        <p class="text-sm text-slate-500">Your data stays in your browser.</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-sm border border-slate-100">
+                        <i class="fas fa-download text-green-500 mb-2"></i>
+                        <h3 class="font-bold text-slate-700">Instant PDF</h3>
+                        <p class="text-sm text-slate-500">Download formatted PDF instantly.</p>
+                    </div>
+                </div>
+
+                <button onclick="goToStep(1)" class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-8 rounded-lg transition transform hover:-translate-y-1 shadow-lg text-lg">
+                    Create Resume <i class="fas fa-arrow-right ml-2"></i>
+                </button>
+                <div class="mt-8 text-xs text-slate-400">
+                    &copy; 2024 Resume Builder. All rights reserved.
+                </div>
+            </div>
+
+            <!-- STEP 1: Personal Information -->
+            <div id="step-personal" class="step-content hidden">
+                <h2 class="text-2xl font-bold text-slate-800 mb-6 border-b pb-2">Personal Information</h2>
+                <form id="form-personal" class="space-y-4">
+                    <div>
+                        <label class="block text-slate-700 font-semibold mb-2" for="fullName">Full Name</label>
+                        <input type="text" id="fullName" class="w-full px-4 py-3 rounded-lg border border-slate-300 focus:border-green-500 focus:ring-2 focus:ring-green-200 outline-none transition" placeholder="e.g. John Doe" required>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-slate-700 font-semibold mb-2" for="email">Email</label>
+                            <input type="email" id="email" class="w-full px-4 py-3 rounded-lg border border-slate-300 focus:border-green-500 focus:ring-2 focus:ring-green-200 outline-none transition" placeholder="john@example.com" required>
+                        </div>
+                        <div>
+                            <label class="block text-slate-700 font-semibold mb-2" for="phone">Phone</label>
+                            <input type="tel" id="phone" class="w-full px-4 py-3 rounded-lg border border-slate-300 focus:border-green-500 focus:ring-2 focus:ring-green-200 outline-none transition" placeholder="+1 234 567 8900" required>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-slate-700 font-semibold mb-2" for="address">Address</label>
+                        <textarea id="address" rows="3" class="w-full px-4 py-3 rounded-lg border border-slate-300 focus:border-green-500 focus:ring-2 focus:ring-green-200 outline-none transition resize-none" placeholder="123 Street Name, City, Country" required></textarea>
+                    </div>
+
+                    <div class="flex justify-between mt-8 pt-4">
+                        <button type="button" onclick="goToStep(0)" class="text-slate-500 hover:text-slate-700 font-semibold px-4 py-2">
+                            Cancel
+                        </button>
+                        <button type="button" onclick="validateAndNext(1)" class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-6 rounded-lg transition shadow-md">
+                            Next Step <i class="fas fa-arrow-right ml-2"></i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- STEP 2: Education -->
+            <div id="step-education" class="step-content hidden">
+                <h2 class="text-2xl font-bold text-slate-800 mb-6 border-b pb-2">Education</h2>
+                <form id="form-education" class="space-y-4">
+                    <div>
+                        <label class="block text-slate-700 font-semibold mb-2" for="university">University / College</label>
+                        <input type="text" id="university" class="w-full px-4 py-3 rounded-lg border border-slate-300 focus:border-green-500 focus:ring-2 focus:ring-green-200 outline-none transition" placeholder="e.g. Harvard University" required>
+                    </div>
+
+                    <div>
+                        <label class="block text-slate-700 font-semibold mb-2" for="degree">Degree</label>
+                        <input type="text" id="degree" class="w-full px-4 py-3 rounded-lg border border-slate-300 focus:border-green-500 focus:ring-2 focus:ring-green-200 outline-none transition" placeholder="e.g. Bachelor of Science in Computer Science" required>
+                    </div>
+
+                    <div>
+                        <label class="block text-slate-700 font-semibold mb-2" for="graduationDate">Graduation Date</label>
+                        <input type="text" id="graduationDate" class="w-full px-4 py-3 rounded-lg border border-slate-300 focus:border-green-500 focus:ring-2 focus:ring-green-200 outline-none transition" placeholder="e.g. May 2024" required>
+                    </div>
+
+                    <div class="flex justify-between mt-8 pt-4">
+                        <button type="button" onclick="goToStep(1)" class="bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold py-2 px-6 rounded-lg transition">
+                            <i class="fas fa-arrow-left mr-2"></i> Back
+                        </button>
+                        <button type="button" onclick="validateAndNext(2)" class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-6 rounded-lg transition shadow-md">
+                            Next Step <i class="fas fa-arrow-right ml-2"></i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- STEP 3: Extra Info -->
+            <div id="step-extra" class="step-content hidden">
+                <h2 class="text-2xl font-bold text-slate-800 mb-6 border-b pb-2">Skills & Interests</h2>
+                <form id="form-extra" class="space-y-4">
+                    <div>
+                        <label class="block text-slate-700 font-semibold mb-2" for="skills">Key Skills</label>
+                        <textarea id="skills" rows="4" class="w-full px-4 py-3 rounded-lg border border-slate-300 focus:border-green-500 focus:ring-2 focus:ring-green-200 outline-none transition resize-none" placeholder="e.g. JavaScript, Python, Team Leadership, Public Speaking..." required></textarea>
+                        <p class="text-xs text-slate-500 mt-1">Separate skills with commas or new lines.</p>
+                    </div>
+
+                    <div>
+                        <label class="block text-slate-700 font-semibold mb-2" for="actHob">Hobbies & Activities</label>
+                        <textarea id="actHob" rows="4" class="w-full px-4 py-3 rounded-lg border border-slate-300 focus:border-green-500 focus:ring-2 focus:ring-green-200 outline-none transition resize-none" placeholder="e.g. Chess Club, Hiking, Volunteer Work..." required></textarea>
+                    </div>
+
+                    <div class="flex justify-between mt-8 pt-4">
+                        <button type="button" onclick="goToStep(2)" class="bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold py-2 px-6 rounded-lg transition">
+                            <i class="fas fa-arrow-left mr-2"></i> Back
+                        </button>
+                        <button type="button" onclick="validateAndNext(3)" class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-6 rounded-lg transition shadow-md">
+                            Generate Resume <i class="fas fa-magic ml-2"></i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- STEP 4: Preview & Download -->
+            <div id="step-preview" class="step-content hidden">
+                <div class="text-center mb-6">
+                    <div class="inline-block p-3 bg-green-100 rounded-full text-green-600 mb-2">
+                        <i class="fas fa-check text-2xl"></i>
+                    </div>
+                    <h2 class="text-2xl font-bold text-slate-800">Resume Ready!</h2>
+                    <p class="text-slate-600">Review your details below.</p>
+                </div>
+
+                <!-- Resume Preview Paper -->
+                <div id="resume-preview" class="bg-white border border-slate-200 rounded shadow-lg p-8 max-w-2xl mx-auto mb-8 text-left">
+                    <div class="border-b-2 border-slate-800 pb-4 mb-4">
+                        <h1 id="preview-name" class="text-3xl font-bold text-slate-900 uppercase"></h1>
+                        <div class="text-sm text-slate-600 mt-2 flex flex-wrap gap-4">
+                            <span id="preview-email"><i class="fas fa-envelope mr-1"></i> </span>
+                            <span id="preview-phone"><i class="fas fa-phone mr-1"></i> </span>
+                            <span id="preview-address" class="block w-full"><i class="fas fa-map-marker-alt mr-1"></i> </span>
+                        </div>
+                    </div>
+
+                    <div class="mb-6">
+                        <h3 class="text-lg font-bold text-slate-800 border-b border-slate-300 mb-2 uppercase tracking-wide">Education</h3>
+                        <div class="mb-2">
+                            <div class="flex justify-between items-baseline">
+                                <h4 id="preview-university" class="font-bold text-slate-700 text-lg"></h4>
+                                <span id="preview-gradDate" class="text-sm text-slate-500 font-medium bg-slate-100 px-2 py-0.5 rounded"></span>
+                            </div>
+                            <p id="preview-degree" class="text-slate-600 italic"></p>
+                        </div>
+                    </div>
+
+                    <div class="mb-6">
+                        <h3 class="text-lg font-bold text-slate-800 border-b border-slate-300 mb-2 uppercase tracking-wide">Skills</h3>
+                        <p id="preview-skills" class="text-slate-700 leading-relaxed"></p>
+                    </div>
+
+                    <div>
+                        <h3 class="text-lg font-bold text-slate-800 border-b border-slate-300 mb-2 uppercase tracking-wide">Activities & Interests</h3>
+                        <p id="preview-hobbies" class="text-slate-700 leading-relaxed"></p>
+                    </div>
+                </div>
+
+                <div class="flex flex-col md:flex-row justify-center gap-4">
+                    <button type="button" onclick="goToStep(3)" class="bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold py-3 px-6 rounded-lg transition">
+                        <i class="fas fa-pencil-alt mr-2"></i> Edit Data
+                    </button>
+                    <button type="button" onclick="downloadPDF()" class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-8 rounded-lg transition shadow-lg transform hover:-translate-y-1">
+                        <i class="fas fa-download mr-2"></i> Download PDF
+                    </button>
+                    <button type="button" onclick="resetForm()" class="bg-red-50 hover:bg-red-100 text-red-600 font-bold py-3 px-6 rounded-lg transition">
+                        Start Over
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Notification Toast -->
+    <div id="toast" class="fixed bottom-5 right-5 bg-red-500 text-white px-6 py-3 rounded-lg shadow-xl transform translate-y-20 opacity-0 transition-all duration-300 flex items-center gap-3 z-50">
+        <i class="fas fa-exclamation-circle"></i>
+        <span id="toast-message">Error message</span>
+    </div>
+
+    <script>
+        // State Management
+        const state = {
+            fullName: '',
+            email: '',
+            phone: '',
+            address: '',
+            university: '',
+            degree: '',
+            graduationDate: '',
+            skills: '',
+            actHob: ''
+        };
+
+        // DOM Elements
+        const steps = ['step-landing', 'step-personal', 'step-education', 'step-extra', 'step-preview'];
+        const headerSection = document.getElementById('header-section');
+        const progressBar = document.getElementById('progress-bar');
+        const stepIndicator = document.getElementById('step-indicator');
+
+        // Initialize from Session Storage if available (persistence)
+        window.addEventListener('load', () => {
+            const savedState = sessionStorage.getItem('resumeState');
+            if (savedState) {
+                const parsed = JSON.parse(savedState);
+                Object.assign(state, parsed);
+                // Pre-fill fields
+                Object.keys(state).forEach(key => {
+                    const el = document.getElementById(key);
+                    if (el) el.value = state[key];
+                });
+            }
+        });
+
+        // Navigation Logic
+        function goToStep(stepIndex) {
+            // Hide all steps
+            steps.forEach(id => {
+                document.getElementById(id).classList.add('hidden');
+                document.getElementById(id).classList.remove('fade-in');
+            });
+
+            // Show target step
+            const activeStep = document.getElementById(steps[stepIndex]);
+            activeStep.classList.remove('hidden');
+            // Trigger reflow for animation
+            void activeStep.offsetWidth; 
+            activeStep.classList.add('fade-in');
+
+            // Update Header & Progress
+            if (stepIndex === 0) {
+                headerSection.classList.add('hidden');
+            } else {
+                headerSection.classList.remove('hidden');
+                
+                // Calculate progress (Step 1 is index 1, max index 4)
+                // Total form steps = 3 (personal, edu, extra). 
+                // Preview is result.
+                let percentage = 0;
+                let text = '';
+                
+                if (stepIndex === 1) { percentage = 33; text = 'Step 1 of 3'; }
+                if (stepIndex === 2) { percentage = 66; text = 'Step 2 of 3'; }
+                if (stepIndex === 3) { percentage = 100; text = 'Step 3 of 3'; }
+                if (stepIndex === 4) { percentage = 100; text = 'Preview'; }
+
+                progressBar.style.width = percentage + '%';
+                stepIndicator.innerText = text;
+            }
+
+            // If going to preview, render data
+            if (stepIndex === 4) {
+                renderPreview();
+            }
+            
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Validation & Data Saving
+        function validateAndNext(currentStepIndex) {
+            let valid = true;
+            let formId = '';
+
+            if (currentStepIndex === 1) formId = 'form-personal';
+            if (currentStepIndex === 2) formId = 'form-education';
+            if (currentStepIndex === 3) formId = 'form-extra';
+
+            const form = document.getElementById(formId);
+            const inputs = form.querySelectorAll('input, textarea');
+
+            inputs.forEach(input => {
+                if (!input.checkValidity()) {
+                    valid = false;
+                    input.classList.add('border-red-500');
+                    // Remove error style on input
+                    input.addEventListener('input', () => input.classList.remove('border-red-500'), { once: true });
+                } else {
+                    // Save to state
+                    state[input.id] = input.value;
+                }
+            });
+
+            if (valid) {
+                // Save to session storage
+                sessionStorage.setItem('resumeState', JSON.stringify(state));
+                goToStep(currentStepIndex + 1);
+            } else {
+                showToast('Please fill in all required fields correctly.');
+            }
+        }
+
+        // Preview Render
+        function renderPreview() {
+            document.getElementById('preview-name').innerText = state.fullName;
+            document.getElementById('preview-email').innerHTML = `<i class="fas fa-envelope mr-1"></i> ${state.email}`;
+            document.getElementById('preview-phone').innerHTML = `<i class="fas fa-phone mr-1"></i> ${state.phone}`;
+            document.getElementById('preview-address').innerHTML = `<i class="fas fa-map-marker-alt mr-1"></i> ${state.address}`;
+            
+            document.getElementById('preview-university').innerText = state.university;
+            document.getElementById('preview-gradDate').innerText = state.graduationDate;
+            document.getElementById('preview-degree').innerText = state.degree;
+            
+            document.getElementById('preview-skills').innerText = state.skills;
+            document.getElementById('preview-hobbies').innerText = state.actHob;
+        }
+
+        // PDF Download using jsPDF
+        function downloadPDF() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            
+            // Margins and Setup
+            const marginLeft = 20;
+            const pageWidth = doc.internal.pageSize.getWidth();
+            const maxLineWidth = pageWidth - (marginLeft * 2);
+            let y = 20;
+
+            // Helper to add text and increment Y
+            const addText = (text, size, style = 'normal', color = [0, 0, 0], align = 'left') => {
+                doc.setFontSize(size);
+                doc.setFont('helvetica', style);
+                doc.setTextColor(...color);
+                
+                // Text wrapping
+                const lines = doc.splitTextToSize(text || '', maxLineWidth);
+                doc.text(lines, marginLeft, y);
+                
+                // Calculate height of added text
+                const lineHeight = size * 0.3527 * 1.2; // roughly px to mm
+                y += lines.length * lineHeight + 2; 
+            };
+
+            // Helper for section titles
+            const addSectionTitle = (title) => {
+                y += 5;
+                doc.setDrawColor(200, 200, 200);
+                doc.line(marginLeft, y, pageWidth - marginLeft, y); // Top line
+                y += 7;
+                addText(title.toUpperCase(), 12, 'bold', [51, 65, 85]); // Slate-700 color
+                y += 2;
+            };
+
+            // --- PDF Content Generation ---
+
+            // Header
+            addText(state.fullName, 22, 'bold', [30, 41, 59]); // Dark blue/slate
+            
+            y -= 2; // tight spacing
+            addText(`${state.email} | ${state.phone}`, 10, 'normal', [100, 116, 139]);
+            addText(state.address, 10, 'normal', [100, 116, 139]);
+            
+            y += 5;
+
+            // Education
+            addSectionTitle('Education');
+            addText(state.university, 12, 'bold');
+            y -= 2;
+            addText(`${state.degree} - ${state.graduationDate}`, 11, 'italic', [80, 80, 80]);
+
+            // Skills
+            addSectionTitle('Key Skills');
+            addText(state.skills, 11);
+
+            // Hobbies
+            addSectionTitle('Activities & Hobbies');
+            addText(state.actHob, 11);
+
+            // Footer
+            const pageHeight = doc.internal.pageSize.getHeight();
+            doc.setFontSize(8);
+            doc.setTextColor(150, 150, 150);
+            doc.text("Generated by Resume Builder", pageWidth / 2, pageHeight - 10, { align: 'center' });
+
+            // Save
+            doc.save(`${state.fullName.replace(/\s+/g, '_')}_Resume.pdf`);
+            showToast('Resume downloaded successfully!');
+        }
+
+        // Reset
+        function resetForm() {
+            if(confirm("Are you sure? This will clear all your data.")) {
+                sessionStorage.removeItem('resumeState');
+                location.reload();
+            }
+        }
+
+        // Toast Notification
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const msgEl = document.getElementById('toast-message');
+            msgEl.innerText = message;
+            
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

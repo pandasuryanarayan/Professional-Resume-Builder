@@ -1,1 +1,2 @@
-# Professional-Resume-Builder
+# Resume-Builder
+Simple Resume Builder using HTML, CSS, JavaScript
