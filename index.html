@@ -72,18 +72,25 @@
             0% { transform: translate(0, 0); }
             100% { transform: translate(-100%, 0); }
         }
+        
+        /* Indian Context Highlights */
+        .section-header {
+            border-left: 4px solid #16a34a;
+            padding-left: 10px;
+            color: #1e293b;
+        }
     </style>
 </head>
 <body class="flex flex-col items-center justify-center p-4">
 
     <!-- APP CONTAINER -->
-    <div id="app-container" class="w-full max-w-3xl glass-panel rounded-2xl overflow-hidden relative fade-in">
+    <div id="app-container" class="w-full max-w-4xl glass-panel rounded-2xl overflow-hidden relative fade-in">
         
         <!-- HEADER MODULE -->
         <div id="header-section" class="hidden bg-slate-800 text-white p-6">
             <div class="flex justify-between items-center mb-4">
                 <h2 class="text-xl font-bold"><i class="fas fa-file-alt mr-2"></i>Resume Builder</h2>
-                <span id="step-indicator" class="text-sm font-medium bg-slate-700 px-3 py-1 rounded-full">Step 1 of 3</span>
+                <span id="step-indicator" class="text-sm font-medium bg-slate-700 px-3 py-1 rounded-full">Step 1 of 5</span>
             </div>
             <!-- Progress Bar -->
             <div class="w-full bg-slate-700 rounded-full h-2.5">
@@ -91,7 +98,7 @@
             </div>
         </div>
 
-        <div class="p-8 md:p-10">
+        <div class="p-6 md:p-10">
 
             <!-- VIEW: Landing Page -->
             <div id="step-landing" class="step-view text-center py-6">
@@ -140,24 +147,44 @@
             <div id="step-personal" class="step-view hidden">
                 <h2 class="text-2xl font-bold text-slate-800 mb-6 border-b pb-2">Personal Information</h2>
                 <form id="form-personal" class="space-y-4">
-                    <div>
-                        <label class="block text-slate-700 font-semibold mb-2" for="fullName">Full Name</label>
-                        <input type="text" name="fullName" class="form-input w-full px-4 py-3 rounded-lg border border-slate-300 focus:border-green-500 outline-none transition" placeholder="Surname Yourname Father's Name Mother's Name" required>
-                    </div>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="md:col-span-2">
+                            <label class="block text-slate-700 font-semibold mb-2" for="fullName">Full Name</label>
+                            <input type="text" name="fullName" class="form-input w-full px-4 py-3 rounded-lg border border-slate-300 focus:border-green-500 outline-none transition" placeholder="Surname Yourname Father's Name" required>
+                        </div>
                         <div>
                             <label class="block text-slate-700 font-semibold mb-2" for="email">Email</label>
                             <input type="email" name="email" class="form-input w-full px-4 py-3 rounded-lg border border-slate-300 focus:border-green-500 outline-none transition" placeholder="john@example.com" required>
                         </div>
                         <div>
-                            <label class="block text-slate-700 font-semibold mb-2" for="phone">Phone</label>
-                            <input type="number" name="phone" class="form-input w-full px-4 py-3 rounded-lg border border-slate-300 focus:border-green-500 outline-none transition" placeholder="Mobile Number" required>
+                            <label class="block text-slate-700 font-semibold mb-2" for="phone">Phone (+91)</label>
+                            <!-- Validation: Only numbers allowed -->
+                            <input type="tel" name="phone" id="phoneInput" class="form-input w-full px-4 py-3 rounded-lg border border-slate-300 focus:border-green-500 outline-none transition" placeholder="9876543210" maxlength="10" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required>
                         </div>
                     </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-slate-700 font-semibold mb-2" for="linkedin"><i class="fab fa-linkedin text-blue-600 mr-1"></i> LinkedIn Profile <span class="text-xs text-slate-400 font-normal">(Optional)</span></label>
+                            <input type="text" name="linkedin" class="form-input w-full px-4 py-3 rounded-lg border border-slate-300 focus:border-green-500 outline-none transition" placeholder="linkedin.com/in/username">
+                        </div>
+                        <div>
+                            <label class="block text-slate-700 font-semibold mb-2" for="languages"><i class="fas fa-language text-purple-600 mr-1"></i> Languages Known</label>
+                            <input type="text" name="languages" class="form-input w-full px-4 py-3 rounded-lg border border-slate-300 focus:border-green-500 outline-none transition" placeholder="English, Hindi, Marathi..." required>
+                        </div>
+                    </div>
+
                     <div>
                         <label class="block text-slate-700 font-semibold mb-2" for="address">Address</label>
-                        <textarea name="address" rows="3" class="form-input w-full px-4 py-3 rounded-lg border border-slate-300 focus:border-green-500 outline-none transition resize-none" placeholder="Full Address" required></textarea>
+                        <textarea name="address" rows="2" class="form-input w-full px-4 py-3 rounded-lg border border-slate-300 focus:border-green-500 outline-none transition resize-none" placeholder="Flat No, Bldg Name, City, State - Pincode" required></textarea>
                     </div>
+
+                    <!-- Professional Summary -->
+                    <div>
+                        <label class="block text-slate-700 font-semibold mb-2" for="summary">Professional Summary / Career Objective</label>
+                        <textarea name="summary" rows="3" class="form-input w-full px-4 py-3 rounded-lg border border-slate-300 focus:border-green-500 outline-none transition resize-none" placeholder="A brief summary of your career goals and achievements..." required></textarea>
+                    </div>
+                    
                     <div class="flex justify-between mt-8 pt-4">
                         <button type="button" onclick="App.navigateTo(0)" class="text-slate-500 hover:text-slate-700 font-semibold px-4 py-2">Home</button>
                         <button type="button" onclick="App.validateAndProceed(1, 'form-personal')" class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-6 rounded-lg transition shadow-md">Next <i class="fas fa-arrow-right ml-1"></i></button>
@@ -167,20 +194,104 @@
 
             <!-- VIEW: Education Form -->
             <div id="step-education" class="step-view hidden">
-                <h2 class="text-2xl font-bold text-slate-800 mb-6 border-b pb-2">Education</h2>
-                <form id="form-education" class="space-y-4">
-                    <div>
-                        <label class="block text-slate-700 font-semibold mb-2" for="university">University</label>
-                        <input type="text" name="university" class="form-input w-full px-4 py-3 rounded-lg border border-slate-300 focus:border-green-500 outline-none transition" placeholder="University Name" required>
+                <h2 class="text-2xl font-bold text-slate-800 mb-6 border-b pb-2">Academic Qualifications</h2>
+                <p class="text-sm text-slate-500 mb-4 bg-yellow-50 p-2 rounded border border-yellow-200"><i class="fas fa-info-circle mr-1"></i> Fill relevant details. "Highest Qualification" is optional if you are currently pursuing a degree.</p>
+                <form id="form-education" class="space-y-6">
+                    
+                    <!-- Ongoing Qualification (Optional) -->
+                    <div class="bg-blue-50 p-4 rounded-lg border border-blue-200">
+                        <h3 class="font-bold text-lg text-slate-700 mb-3 section-header">Current / Ongoing Qualification (Optional)</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="md:col-span-2">
+                                <label class="text-sm font-semibold text-slate-600">College / University Name</label>
+                                <input type="text" name="ongoing_university" class="form-input w-full p-2 rounded border border-slate-300 focus:border-green-500 outline-none" placeholder="e.g. Current University">
+                            </div>
+                            <div>
+                                <label class="text-sm font-semibold text-slate-600">Degree Pursuing</label>
+                                <input type="text" name="ongoing_degree" class="form-input w-full p-2 rounded border border-slate-300 focus:border-green-500 outline-none" placeholder="e.g. M.Tech / MBA">
+                            </div>
+                            <div>
+                                <label class="text-sm font-semibold text-slate-600">Expected Completion</label>
+                                <input type="text" name="ongoing_year" class="form-input w-full p-2 rounded border border-slate-300 focus:border-green-500 outline-none" placeholder="2026">
+                            </div>
+                        </div>
                     </div>
-                    <div>
-                        <label class="block text-slate-700 font-semibold mb-2" for="degree">Degree</label>
-                        <input type="text" name="degree" class="form-input w-full px-4 py-3 rounded-lg border border-slate-300 focus:border-green-500 outline-none transition" placeholder="Degree with Year" required>
+
+                    <!-- Graduation (Modified: Removed 'required') -->
+                    <div class="bg-slate-50 p-4 rounded-lg border border-slate-200">
+                        <h3 class="font-bold text-lg text-slate-700 mb-3 section-header">Highest Qualification / Graduation (Optional)</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="md:col-span-2">
+                                <label class="text-sm font-semibold text-slate-600">College / University Name</label>
+                                <input type="text" name="university" class="form-input w-full p-2 rounded border border-slate-300 focus:border-green-500 outline-none" placeholder="e.g. IIT Bombay">
+                            </div>
+                            <div>
+                                <label class="text-sm font-semibold text-slate-600">Degree</label>
+                                <input type="text" name="degree" class="form-input w-full p-2 rounded border border-slate-300 focus:border-green-500 outline-none" placeholder="e.g. B.Tech Computer Science">
+                            </div>
+                            <div class="grid grid-cols-2 gap-2">
+                                <div>
+                                    <label class="text-sm font-semibold text-slate-600">Year</label>
+                                    <input type="text" name="graduationDate" class="form-input w-full p-2 rounded border border-slate-300 focus:border-green-500 outline-none" placeholder="2024">
+                                </div>
+                                <div>
+                                    <label class="text-sm font-semibold text-slate-600">CGPA/%</label>
+                                    <input type="text" name="gradScore" class="form-input w-full p-2 rounded border border-slate-300 focus:border-green-500 outline-none" placeholder="9.5 CGPA">
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div>
-                        <label class="block text-slate-700 font-semibold mb-2" for="graduationDate">Graduation Year</label>
-                        <input type="text" name="graduationDate" class="form-input w-full px-4 py-3 rounded-lg border border-slate-300 focus:border-green-500 outline-none transition" placeholder="Month and Year separated by space" required>
+
+                    <!-- 12th / Diploma -->
+                    <div class="bg-slate-50 p-4 rounded-lg border border-slate-200">
+                        <h3 class="font-bold text-lg text-slate-700 mb-3 section-header">Class XII / Diploma</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="md:col-span-2">
+                                <label class="text-sm font-semibold text-slate-600">School / College Name</label>
+                                <input type="text" name="edu_12th_school" class="form-input w-full p-2 rounded border border-slate-300 focus:border-green-500 outline-none" placeholder="e.g. Delhi Public School" required>
+                            </div>
+                            <div>
+                                <label class="text-sm font-semibold text-slate-600">Stream</label>
+                                <input type="text" name="edu_12th_stream" class="form-input w-full p-2 rounded border border-slate-300 focus:border-green-500 outline-none" placeholder="e.g. Science (PCM)" required>
+                            </div>
+                            <div class="grid grid-cols-2 gap-2">
+                                <div>
+                                    <label class="text-sm font-semibold text-slate-600">Year</label>
+                                    <input type="text" name="edu_12th_year" class="form-input w-full p-2 rounded border border-slate-300 focus:border-green-500 outline-none" placeholder="2020" required>
+                                </div>
+                                <div>
+                                    <label class="text-sm font-semibold text-slate-600">%</label>
+                                    <input type="text" name="edu_12th_score" class="form-input w-full p-2 rounded border border-slate-300 focus:border-green-500 outline-none" placeholder="85%" required>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+
+                    <!-- 10th -->
+                    <div class="bg-slate-50 p-4 rounded-lg border border-slate-200">
+                        <h3 class="font-bold text-lg text-slate-700 mb-3 section-header">Class X</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="md:col-span-2">
+                                <label class="text-sm font-semibold text-slate-600">School Name</label>
+                                <input type="text" name="edu_10th_school" class="form-input w-full p-2 rounded border border-slate-300 focus:border-green-500 outline-none" placeholder="School Name" required>
+                            </div>
+                            <div>
+                                <label class="text-sm font-semibold text-slate-600">Board</label>
+                                <input type="text" name="edu_10th_board" class="form-input w-full p-2 rounded border border-slate-300 focus:border-green-500 outline-none" placeholder="e.g. CBSE / State Board" required>
+                            </div>
+                            <div class="grid grid-cols-2 gap-2">
+                                <div>
+                                    <label class="text-sm font-semibold text-slate-600">Year</label>
+                                    <input type="text" name="edu_10th_year" class="form-input w-full p-2 rounded border border-slate-300 focus:border-green-500 outline-none" placeholder="2018" required>
+                                </div>
+                                <div>
+                                    <label class="text-sm font-semibold text-slate-600">% / CGPA</label>
+                                    <input type="text" name="edu_10th_score" class="form-input w-full p-2 rounded border border-slate-300 focus:border-green-500 outline-none" placeholder="92%" required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="flex justify-between mt-8 pt-4">
                         <button type="button" onclick="App.navigateTo(1)" class="bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold py-2 px-6 rounded-lg transition"><i class="fas fa-arrow-left mr-2"></i> Back</button>
                         <button type="button" onclick="App.validateAndProceed(2, 'form-education')" class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-6 rounded-lg transition shadow-md">Next <i class="fas fa-arrow-right ml-1"></i></button>
@@ -188,21 +299,65 @@
                 </form>
             </div>
 
-            <!-- VIEW: Extra Info Form -->
-            <div id="step-extra" class="step-view hidden">
-                <h2 class="text-2xl font-bold text-slate-800 mb-6 border-b pb-2">Extra Information</h2>
-                <form id="form-extra" class="space-y-4">
-                    <div>
-                        <label class="block text-slate-700 font-semibold mb-2" for="skills">Skills</label>
-                        <textarea name="skills" rows="4" class="form-input w-full px-4 py-3 rounded-lg border border-slate-300 focus:border-green-500 outline-none transition resize-none" placeholder="Enter Skills" required></textarea>
+            <!-- VIEW: Work Experience -->
+            <div id="step-work" class="step-view hidden">
+                <h2 class="text-2xl font-bold text-slate-800 mb-6 border-b pb-2">Work Experience</h2>
+                <form id="form-work" class="space-y-4">
+                    <div class="bg-blue-50 border border-blue-100 p-4 rounded-lg mb-4 text-sm text-blue-800">
+                        <i class="fas fa-info-circle mr-1"></i> Include full-time jobs, internships, or freelance work. Leave blank if not applicable (fresher).
                     </div>
+
                     <div>
-                        <label class="block text-slate-700 font-semibold mb-2" for="actHob">Activities/Hobbies</label>
-                        <textarea name="actHob" rows="4" class="form-input w-full px-4 py-3 rounded-lg border border-slate-300 focus:border-green-500 outline-none transition resize-none" placeholder="Enter Activities/Hobbies" required></textarea>
+                        <label class="block text-slate-700 font-semibold mb-2" for="workExperience">Work Experience Details</label>
+                        <textarea name="workExperience" rows="8" class="form-input w-full px-4 py-3 rounded-lg border border-slate-300 focus:border-green-500 outline-none transition resize-none" placeholder="• Software Engineer at ABC Tech (2022-Present): Developed web applications...&#10;• Intern at XYZ Solutions (2021): Assisted in database management..."></textarea>
+                        <p class="text-xs text-slate-500 mt-1">Use bullet points (•) for readability.</p>
                     </div>
+
                     <div class="flex justify-between mt-8 pt-4">
                         <button type="button" onclick="App.navigateTo(2)" class="bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold py-2 px-6 rounded-lg transition"><i class="fas fa-arrow-left mr-2"></i> Back</button>
-                        <button type="button" onclick="App.validateAndProceed(3, 'form-extra')" class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-6 rounded-lg transition shadow-md">Generate Resume <i class="fas fa-magic ml-1"></i></button>
+                        <button type="button" onclick="App.validateAndProceed(3, 'form-work')" class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-6 rounded-lg transition shadow-md">Next <i class="fas fa-arrow-right ml-1"></i></button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- VIEW: Projects -->
+            <div id="step-projects" class="step-view hidden">
+                <h2 class="text-2xl font-bold text-slate-800 mb-6 border-b pb-2">Academic & Personal Projects</h2>
+                <form id="form-projects" class="space-y-4">
+                    <div>
+                        <label class="block text-slate-700 font-semibold mb-2" for="projects">Projects</label>
+                        <textarea name="projects" rows="8" class="form-input w-full px-4 py-3 rounded-lg border border-slate-300 focus:border-green-500 outline-none transition resize-none" placeholder="• Library Management System: Built using Java and MySQL...&#10;• Portfolio Website: Created using HTML/CSS..." required></textarea>
+                    </div>
+
+                    <div class="flex justify-between mt-8 pt-4">
+                        <button type="button" onclick="App.navigateTo(3)" class="bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold py-2 px-6 rounded-lg transition"><i class="fas fa-arrow-left mr-2"></i> Back</button>
+                        <button type="button" onclick="App.validateAndProceed(4, 'form-projects')" class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-6 rounded-lg transition shadow-md">Next <i class="fas fa-arrow-right ml-1"></i></button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- VIEW: Extra Info Form -->
+            <div id="step-extra" class="step-view hidden">
+                <h2 class="text-2xl font-bold text-slate-800 mb-6 border-b pb-2">Skills & Certifications</h2>
+                <form id="form-extra" class="space-y-4">
+                    <div>
+                        <label class="block text-slate-700 font-semibold mb-2" for="skills">Technical Skills</label>
+                        <textarea name="skills" rows="3" class="form-input w-full px-4 py-3 rounded-lg border border-slate-300 focus:border-green-500 outline-none transition resize-none" placeholder="e.g. Java, Python, HTML, CSS, SQL, Communication..." required></textarea>
+                    </div>
+                    
+                    <!-- Certifications & Training -->
+                    <div>
+                        <label class="block text-slate-700 font-semibold mb-2" for="certifications">Certifications & Training</label>
+                        <textarea name="certifications" rows="3" class="form-input w-full px-4 py-3 rounded-lg border border-slate-300 focus:border-green-500 outline-none transition resize-none" placeholder="• Certified Java Developer (Oracle)&#10;• Web Development Bootcamp (Udemy)"></textarea>
+                    </div>
+
+                    <div>
+                        <label class="block text-slate-700 font-semibold mb-2" for="actHob">Hobbies / Extracurriculars</label>
+                        <textarea name="actHob" rows="3" class="form-input w-full px-4 py-3 rounded-lg border border-slate-300 focus:border-green-500 outline-none transition resize-none" placeholder="e.g. Cricket, Chess, Debate Club, Volunteering..." required></textarea>
+                    </div>
+                    <div class="flex justify-between mt-8 pt-4">
+                        <button type="button" onclick="App.navigateTo(4)" class="bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold py-2 px-6 rounded-lg transition"><i class="fas fa-arrow-left mr-2"></i> Back</button>
+                        <button type="button" onclick="App.validateAndProceed(5, 'form-extra')" class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-6 rounded-lg transition shadow-md">Generate Resume <i class="fas fa-magic ml-1"></i></button>
                     </div>
                 </form>
             </div>
@@ -210,50 +365,93 @@
             <!-- VIEW: Preview & Download -->
             <div id="step-preview" class="step-view hidden">
                 <div class="text-center mb-6">
-                    <h2 class="text-2xl font-bold text-slate-800">Generated Resume</h2>
-                    <p class="text-slate-600">Review and download.</p>
+                    <h2 class="text-2xl font-bold text-slate-800">Resume Generated!</h2>
+                    <p class="text-slate-600">Review your Bharatiya-style Resume below.</p>
                 </div>
 
                 <div id="preview-paper" class="bg-white border border-slate-200 rounded shadow-lg p-8 max-w-2xl mx-auto mb-8 text-left transition-all hover:shadow-xl">
                     <!-- Dynamic Content Injected Here by UIManager -->
                     <div class="border-b-2 border-slate-800 pb-4 mb-4">
                         <h1 class="text-3xl font-bold text-slate-900 uppercase" data-bind="fullName"></h1>
-                        <div class="text-sm text-slate-600 mt-2 flex flex-wrap gap-4">
-                            <span><i class="fas fa-envelope mr-1"></i> <span data-bind="email"></span></span>
-                            <span><i class="fas fa-phone mr-1"></i> <span data-bind="phone"></span></span>
-                            <span class="block w-full"><i class="fas fa-map-marker-alt mr-1"></i> <span data-bind="address"></span></span>
+                        <div class="text-sm text-slate-600 mt-2 flex flex-col gap-1">
+                            <span><i class="fas fa-envelope mr-2 w-4"></i> <span data-bind="email"></span> | <i class="fas fa-phone mr-2 w-4"></i> <span data-bind="phone"></span></span>
+                            <span><i class="fab fa-linkedin mr-2 w-4"></i> <span data-bind="linkedin"></span></span>
+                            <span><i class="fas fa-map-marker-alt mr-2 w-4"></i> <span data-bind="address"></span></span>
+                        </div>
+                        <div class="mt-4 text-sm text-slate-700 italic border-l-4 border-green-500 pl-3">
+                            <span data-bind="summary"></span>
                         </div>
                     </div>
-                    <div class="mb-6">
-                        <h3 class="text-lg font-bold text-slate-800 border-b border-slate-300 mb-2 uppercase">Education</h3>
-                        <div class="mb-2">
-                            <p class="text-slate-600 font-semibold">University:</p>
-                            <p class="text-slate-800 ml-2" data-bind="university"></p>
-                        </div>
-                        <div class="mb-2">
-                            <p class="text-slate-600 font-semibold">Degree:</p>
-                            <p class="text-slate-800 ml-2" data-bind="degree"></p>
-                        </div>
-                        <div class="mb-2">
-                            <p class="text-slate-600 font-semibold">Graduation Date:</p>
-                            <p class="text-slate-800 ml-2" data-bind="graduationDate"></p>
+                    
+                    <div class="mb-4">
+                        <h3 class="text-lg font-bold text-slate-800 border-b border-slate-300 mb-2 uppercase tracking-wide">Education Qualification</h3>
+                        <div class="overflow-x-auto">
+                            <table class="min-w-full text-sm text-left text-slate-600">
+                                <thead class="bg-slate-100 text-xs uppercase font-bold">
+                                    <tr>
+                                        <th class="px-2 py-1">Qualification</th>
+                                        <th class="px-2 py-1">Institute</th>
+                                        <th class="px-2 py-1">Year</th>
+                                        <th class="px-2 py-1">Score</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-slate-100">
+                                    <!-- Ongoing -->
+                                    <tr id="preview-ongoing">
+                                        <td class="px-2 py-1 font-medium" data-bind="ongoing_degree"></td>
+                                        <td class="px-2 py-1" data-bind="ongoing_university"></td>
+                                        <td class="px-2 py-1" data-bind="ongoing_year"></td>
+                                        <td class="px-2 py-1">Ongoing</td>
+                                    </tr>
+                                    <!-- Completed -->
+                                    <tr id="preview-graduation">
+                                        <td class="px-2 py-1 font-medium" data-bind="degree"></td>
+                                        <td class="px-2 py-1" data-bind="university"></td>
+                                        <td class="px-2 py-1" data-bind="graduationDate"></td>
+                                        <td class="px-2 py-1" data-bind="gradScore"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-2 py-1 font-medium">Class XII / Diploma</td>
+                                        <td class="px-2 py-1" data-bind="edu_12th_school"></td>
+                                        <td class="px-2 py-1" data-bind="edu_12th_year"></td>
+                                        <td class="px-2 py-1" data-bind="edu_12th_score"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-2 py-1 font-medium">Class X</td>
+                                        <td class="px-2 py-1" data-bind="edu_10th_school"></td>
+                                        <td class="px-2 py-1" data-bind="edu_10th_year"></td>
+                                        <td class="px-2 py-1" data-bind="edu_10th_score"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
-                    <div class="mb-6">
-                        <h3 class="text-lg font-bold text-slate-800 border-b border-slate-300 mb-2 uppercase">Extra Information</h3>
-                        <div class="mb-2">
-                            <p class="text-slate-600 font-semibold">Skills:</p>
-                            <p class="text-slate-800 ml-2" data-bind="skills"></p>
-                        </div>
-                        <div class="mb-2">
-                            <p class="text-slate-600 font-semibold">Activities/Hobbies:</p>
-                            <p class="text-slate-800 ml-2" data-bind="actHob"></p>
-                        </div>
+
+                    <div class="mb-4">
+                        <h3 class="text-lg font-bold text-slate-800 border-b border-slate-300 mb-2 uppercase tracking-wide">Work Experience</h3>
+                        <p class="text-slate-700 whitespace-pre-line text-sm" data-bind="workExperience"></p>
+                    </div>
+
+                    <div class="mb-4">
+                        <h3 class="text-lg font-bold text-slate-800 border-b border-slate-300 mb-2 uppercase tracking-wide">Projects</h3>
+                        <p class="text-slate-700 whitespace-pre-line text-sm" data-bind="projects"></p>
+                    </div>
+
+                    <div class="mb-4">
+                        <h3 class="text-lg font-bold text-slate-800 border-b border-slate-300 mb-2 uppercase tracking-wide">Skills & Certifications</h3>
+                        <p class="text-slate-700 text-sm"><strong>Technical:</strong> <span data-bind="skills"></span></p>
+                        <p class="text-slate-700 text-sm mt-1"><strong>Certifications:</strong> <span data-bind="certifications" class="whitespace-pre-line"></span></p>
+                        <p class="text-slate-700 text-sm mt-1"><strong>Languages:</strong> <span data-bind="languages"></span></p>
+                    </div>
+                    
+                    <div>
+                        <h3 class="text-lg font-bold text-slate-800 border-b border-slate-300 mb-2 uppercase tracking-wide">Hobbies</h3>
+                        <p class="text-slate-700 text-sm" data-bind="actHob"></p>
                     </div>
                 </div>
 
                 <div class="flex flex-col md:flex-row justify-center gap-4">
-                    <button type="button" onclick="App.navigateTo(3)" class="bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold py-3 px-6 rounded-lg transition">Edit Data</button>
+                    <button type="button" onclick="App.navigateTo(5)" class="bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold py-3 px-6 rounded-lg transition">Edit Data</button>
                     <button type="button" onclick="App.download()" class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-8 rounded-lg transition shadow-lg transform hover:-translate-y-1">Download PDF</button>
                     <button type="button" onclick="App.navigateTo(0)" class="bg-red-50 hover:bg-red-100 text-red-600 font-bold py-3 px-6 rounded-lg transition">Home</button>
                 </div>
@@ -277,7 +475,7 @@
          * ------------------------------------------------------------------
          */
         const StorageService = {
-            KEY: 'resume_builder_data',
+            KEY: 'resume_builder_data_v3', 
             
             save(data) {
                 try {
@@ -325,44 +523,137 @@
                 const maxW = pageWidth - (margin * 2);
 
                 // Helper: Text Writing
-                const writeText = (text, size, weight = 'normal', color = [0,0,0]) => {
+                const writeText = (text, size, weight = 'normal', color = [0,0,0], indent = 0) => {
                     doc.setFontSize(size);
                     doc.setFont('helvetica', weight);
                     doc.setTextColor(...color);
-                    const lines = doc.splitTextToSize(text || '', maxW);
-                    doc.text(lines, margin, y);
-                    // Approx line height calculation
+                    const lines = doc.splitTextToSize(text || '', maxW - indent);
+                    doc.text(lines, margin + indent, y);
                     y += (lines.length * size * 0.3527 * 1.2) + 2; 
                 };
 
                 // Helper: Section Header
                 const writeHeader = (title) => {
-                    y += 5;
+                    y += 4;
                     doc.setDrawColor(200);
                     doc.line(margin, y, pageWidth - margin, y);
-                    y += 7;
+                    y += 6;
                     writeText(title.toUpperCase(), 12, 'bold', [60, 60, 60]);
                     y += 1;
+                };
+
+                // Helper: Write Education Row
+                const writeEduRow = (qual, college, year, score) => {
+                    if(!college) return;
+                    doc.setFontSize(10);
+                    doc.setFont('helvetica', 'bold');
+                    doc.setTextColor(0,0,0);
+                    doc.text(qual, margin, y);
+                    
+                    doc.setFont('helvetica', 'normal');
+                    const collegeWidth = doc.getTextWidth(college);
+                    // Right align year and score
+                    const yearScore = `${year}  |  ${score}`;
+                    const rightX = pageWidth - margin - doc.getTextWidth(yearScore);
+                    
+                    doc.text(college, margin + 40, y);
+                    doc.text(yearScore, rightX, y);
+                    y += 6;
                 };
 
                 // 1. Header Info
                 writeText(data.fullName, 22, 'bold', [40, 40, 60]);
                 y -= 2;
-                writeText(`Address: ${data.address}`, 10, 'normal', [100, 100, 100]);
-                writeText(`Email: ${data.email}`, 10, 'normal', [100, 100, 100]);
-                writeText(`Phone: ${data.phone}`, 10, 'normal', [100, 100, 100]);
+                doc.setFontSize(10);
+                doc.setFont('helvetica', 'normal');
+                doc.setTextColor(100, 100, 100);
+                
+                let contactInfo = `${data.email} | ${data.phone}`;
+                if(data.linkedin) contactInfo += ` | ${data.linkedin}`;
+                
+                doc.text(contactInfo, margin, y);
                 y += 5;
+                doc.text(data.address, margin, y);
+                y += 7;
 
-                // 2. Education
-                writeHeader('Education');
-                writeText(`University: ${data.university}`, 11, 'normal', [0, 0, 0]);
-                writeText(`Degree: ${data.degree}`, 11, 'normal', [0, 0, 0]);
-                writeText(`Graduation Date: ${data.graduationDate}`, 11, 'normal', [0, 0, 0]);
+                // 2. Summary
+                if (data.summary) {
+                    doc.setDrawColor(200);
+                    doc.line(margin, y, pageWidth - margin, y);
+                    y += 6;
+                    writeText(data.summary, 10, 'normal', [60, 60, 60]);
+                }
 
-                // 3. Extra Information
-                writeHeader('Extra Information');
-                writeText(`Skills: ${data.skills}`, 11);
-                writeText(`Activities/Hobbies: ${data.actHob}`, 11);
+                // 3. Education
+                writeHeader('Academic Qualifications');
+                // Header Row
+                doc.setFontSize(9);
+                doc.setFont('helvetica', 'bold');
+                doc.setTextColor(80, 80, 80);
+                doc.text("Degree / Class", margin, y);
+                doc.text("Institute / School", margin + 40, y);
+                doc.text("Year | Score", pageWidth - margin - 25, y);
+                y += 6;
+
+                // Optional Ongoing
+                if (data.ongoing_degree && data.ongoing_university) {
+                    writeEduRow(data.ongoing_degree, data.ongoing_university, data.ongoing_year || 'Pursuing', 'NA');
+                }
+
+                // Optional Graduation
+                if (data.degree && data.university) {
+                    writeEduRow(data.degree, data.university, data.graduationDate, data.gradScore);
+                }
+
+                writeEduRow("Class XII / Diploma", data.edu_12th_school, data.edu_12th_year, data.edu_12th_score);
+                writeEduRow("Class X", data.edu_10th_school, data.edu_10th_year, data.edu_10th_score);
+
+                // 4. Work Experience
+                if (data.workExperience && data.workExperience.trim().length > 0) {
+                    writeHeader('Work Experience');
+                    writeText(data.workExperience, 10, 'normal', [0,0,0]);
+                }
+
+                // 5. Projects
+                if (data.projects && data.projects.trim().length > 0) {
+                    writeHeader('Projects');
+                    writeText(data.projects, 10, 'normal', [0,0,0]);
+                }
+
+                // 6. Skills & Certifications
+                writeHeader('Technical Skills & Certifications');
+                if(data.skills) {
+                    doc.setFont('helvetica', 'bold');
+                    doc.setTextColor(0,0,0);
+                    doc.text("Technical Skills:", margin, y);
+                    doc.setFont('helvetica', 'normal');
+                    const skillLines = doc.splitTextToSize(data.skills, maxW - 35);
+                    doc.text(skillLines, margin + 35, y);
+                    y += (skillLines.length * 5) + 2;
+                }
+
+                if(data.certifications) {
+                    doc.setFont('helvetica', 'bold');
+                    doc.text("Certifications:", margin, y);
+                    doc.setFont('helvetica', 'normal');
+                    const certLines = doc.splitTextToSize(data.certifications, maxW - 35);
+                    doc.text(certLines, margin + 35, y);
+                    y += (certLines.length * 5) + 2;
+                }
+                
+                if(data.languages) {
+                    doc.setFont('helvetica', 'bold');
+                    doc.text("Languages:", margin, y);
+                    doc.setFont('helvetica', 'normal');
+                    doc.text(data.languages, margin + 35, y);
+                    y += 7;
+                }
+
+                // 7. Hobbies
+                if(data.actHob) {
+                    writeHeader('Extracurricular Activities');
+                    writeText(data.actHob, 10);
+                }
 
                 // Footer
                 doc.setFontSize(8);
@@ -381,7 +672,7 @@
          * ------------------------------------------------------------------
          */
         const UIManager = {
-            views: ['step-landing', 'step-personal', 'step-education', 'step-extra', 'step-preview'],
+            views: ['step-landing', 'step-personal', 'step-education', 'step-work', 'step-projects', 'step-extra', 'step-preview'],
             
             elements: {
                 header: document.getElementById('header-section'),
@@ -391,14 +682,12 @@
                 toastMsg: document.getElementById('toast-message')
             },
 
-            // Populate form inputs from state
             populateInputs(state) {
                 document.querySelectorAll('input, textarea').forEach(input => {
                     if (state[input.name]) input.value = state[input.name];
                 });
             },
 
-            // Collect data from a specific form ID
             getFormData(formId) {
                 const form = document.getElementById(formId);
                 if (!form) return {};
@@ -406,22 +695,18 @@
                 return Object.fromEntries(formData.entries());
             },
 
-            // Switch visible section
             showView(index) {
-                // Hide all
                 this.views.forEach(id => {
                     const el = document.getElementById(id);
                     el.classList.add('hidden');
                     el.classList.remove('fade-in');
                 });
 
-                // Show current
                 const active = document.getElementById(this.views[index]);
                 active.classList.remove('hidden');
-                void active.offsetWidth; // Trigger reflow for animation
+                void active.offsetWidth; 
                 active.classList.add('fade-in');
 
-                // Update Header
                 this.updateHeader(index);
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             },
@@ -431,35 +716,47 @@
                     this.elements.header.classList.add('hidden');
                 } else {
                     this.elements.header.classList.remove('hidden');
-                    let pct = 0;
-                    if (index === 1) pct = 33;
-                    if (index === 2) pct = 66;
-                    if (index >= 3) pct = 100;
+                    const totalSteps = this.views.length - 2; 
+                    let currentStep = index;
+                    if(index === this.views.length - 1) currentStep = totalSteps + 1;
+
+                    let pct = Math.floor((index / (this.views.length - 1)) * 100);
+                    if (pct > 100) pct = 100;
                     
                     this.elements.progressBar.style.width = `${pct}%`;
-                    this.elements.stepText.innerText = index === 4 ? 'Preview' : `Step ${index} of 3`;
+                    this.elements.stepText.innerText = index === this.views.length - 1 ? 'Preview' : `Step ${index} of ${this.views.length - 2}`;
                 }
             },
 
-            // Update Preview HTML based on binding attributes
             renderPreview(state) {
                 const binds = document.querySelectorAll('[data-bind]');
                 binds.forEach(el => {
                     const key = el.getAttribute('data-bind');
-                    if (state[key]) el.innerText = state[key];
+                    if (state[key]) {
+                        el.innerText = state[key];
+                    } else {
+                        el.innerText = ''; 
+                    }
                 });
+
+                // Conditional rendering for table rows
+                const ongoingRow = document.getElementById('preview-ongoing');
+                if(ongoingRow) {
+                    ongoingRow.style.display = (state.ongoing_degree && state.ongoing_university) ? 'table-row' : 'none';
+                }
+                
+                const gradRow = document.getElementById('preview-graduation');
+                if(gradRow) {
+                    gradRow.style.display = (state.degree && state.university) ? 'table-row' : 'none';
+                }
             },
 
             showToast(msg, type = 'error') {
                 this.elements.toastMsg.innerText = msg;
                 this.elements.toast.className = `fixed bottom-5 right-5 text-white px-6 py-3 rounded-lg shadow-xl transform transition-all duration-300 flex items-center gap-3 z-50 ${type === 'success' ? 'bg-green-600' : 'bg-red-500'}`;
-                
-                // Show
                 requestAnimationFrame(() => {
                     this.elements.toast.classList.remove('translate-y-20', 'opacity-0');
                 });
-
-                // Hide after 3s
                 setTimeout(() => {
                     this.elements.toast.classList.add('translate-y-20', 'opacity-0');
                 }, 3000);
@@ -470,8 +767,18 @@
                 const inputs = form.querySelectorAll('input, textarea');
                 let valid = true;
 
+                // Phone Validation specific check
+                const phoneInput = form.querySelector('input[name="phone"]');
+                if(phoneInput) {
+                    if(phoneInput.value.length !== 10) {
+                        phoneInput.classList.add('border-red-500');
+                        this.showToast('Phone number must be exactly 10 digits');
+                        return false;
+                    }
+                }
+
                 inputs.forEach(input => {
-                    if (!input.checkValidity()) {
+                    if (input.hasAttribute('required') && !input.value.trim()) {
                         valid = false;
                         input.classList.add('border-red-500');
                         input.addEventListener('input', () => input.classList.remove('border-red-500'), { once: true });
@@ -489,13 +796,16 @@
          */
         const App = {
             state: {
-                fullName: '', email: '', phone: '', address: '',
-                university: '', degree: '', graduationDate: '',
-                skills: '', actHob: ''
+                fullName: '', email: '', phone: '', address: '', linkedin: '', languages: '', summary: '',
+                ongoing_university: '', ongoing_degree: '', ongoing_year: '',
+                university: '', degree: '', graduationDate: '', gradScore: '',
+                edu_12th_school: '', edu_12th_stream: '', edu_12th_year: '', edu_12th_score: '',
+                edu_10th_school: '', edu_10th_board: '', edu_10th_year: '', edu_10th_score: '',
+                workExperience: '', projects: '', 
+                skills: '', certifications: '', actHob: ''
             },
 
             init() {
-                // Load data
                 const saved = StorageService.load();
                 if (saved) {
                     this.state = { ...this.state, ...saved };
@@ -504,15 +814,14 @@
             },
 
             navigateTo(stepIndex) {
-                UIManager.showView(stepIndex);
-                if (stepIndex === 4) { // Preview step
+                if (stepIndex === UIManager.views.length - 1) { 
                     UIManager.renderPreview(this.state);
                 }
+                UIManager.showView(stepIndex);
             },
 
             validateAndProceed(currentStepIndex, formId) {
                 if (UIManager.validateForm(formId)) {
-                    // Harvest data
                     const newData = UIManager.getFormData(formId);
                     this.updateState(newData);
                     this.navigateTo(currentStepIndex + 1);
@@ -544,7 +853,6 @@
             }
         };
 
-        // Bootstrap the App
         window.addEventListener('load', () => App.init());
 
     </script>
