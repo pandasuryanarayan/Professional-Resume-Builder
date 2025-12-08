@@ -195,51 +195,19 @@
             <!-- VIEW: Education Form -->
             <div id="step-education" class="step-view hidden">
                 <h2 class="text-2xl font-bold text-slate-800 mb-6 border-b pb-2">Academic Qualifications</h2>
-                <p class="text-sm text-slate-500 mb-4 bg-yellow-50 p-2 rounded border border-yellow-200"><i class="fas fa-info-circle mr-1"></i> Fill relevant details. "Highest Qualification" is optional if you are currently pursuing a degree.</p>
+                <p class="text-sm text-slate-500 mb-4 bg-yellow-50 p-2 rounded border border-yellow-200"><i class="fas fa-info-circle mr-1"></i> Add your qualifications below. Select 'Ongoing' if you are currently pursuing a degree.</p>
+                
                 <form id="form-education" class="space-y-6">
                     
-                    <!-- Ongoing Qualification (Optional) -->
-                    <div class="bg-blue-50 p-4 rounded-lg border border-blue-200">
-                        <h3 class="font-bold text-lg text-slate-700 mb-3 section-header">Current / Ongoing Qualification (Optional)</h3>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div class="md:col-span-2">
-                                <label class="text-sm font-semibold text-slate-600">College / University Name</label>
-                                <input type="text" name="ongoing_university" class="form-input w-full p-2 rounded border border-slate-300 focus:border-green-500 outline-none" placeholder="e.g. Current University">
-                            </div>
-                            <div>
-                                <label class="text-sm font-semibold text-slate-600">Degree Pursuing</label>
-                                <input type="text" name="ongoing_degree" class="form-input w-full p-2 rounded border border-slate-300 focus:border-green-500 outline-none" placeholder="e.g. M.Tech / MBA">
-                            </div>
-                            <div>
-                                <label class="text-sm font-semibold text-slate-600">Expected Completion</label>
-                                <input type="text" name="ongoing_year" class="form-input w-full p-2 rounded border border-slate-300 focus:border-green-500 outline-none" placeholder="2026">
-                            </div>
-                        </div>
+                    <!-- Dynamic Qualifications Container -->
+                    <div id="qualifications-container" class="space-y-4">
+                        <!-- Items injected by JS -->
                     </div>
 
-                    <!-- Graduation (Modified: Removed 'required') -->
-                    <div class="bg-slate-50 p-4 rounded-lg border border-slate-200">
-                        <h3 class="font-bold text-lg text-slate-700 mb-3 section-header">Highest Qualification / Graduation (Optional)</h3>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div class="md:col-span-2">
-                                <label class="text-sm font-semibold text-slate-600">College / University Name</label>
-                                <input type="text" name="university" class="form-input w-full p-2 rounded border border-slate-300 focus:border-green-500 outline-none" placeholder="e.g. IIT Bombay">
-                            </div>
-                            <div>
-                                <label class="text-sm font-semibold text-slate-600">Degree</label>
-                                <input type="text" name="degree" class="form-input w-full p-2 rounded border border-slate-300 focus:border-green-500 outline-none" placeholder="e.g. B.Tech Computer Science">
-                            </div>
-                            <div class="grid grid-cols-2 gap-2">
-                                <div>
-                                    <label class="text-sm font-semibold text-slate-600">Year</label>
-                                    <input type="text" name="graduationDate" class="form-input w-full p-2 rounded border border-slate-300 focus:border-green-500 outline-none" placeholder="2024">
-                                </div>
-                                <div>
-                                    <label class="text-sm font-semibold text-slate-600">CGPA/%</label>
-                                    <input type="text" name="gradScore" class="form-input w-full p-2 rounded border border-slate-300 focus:border-green-500 outline-none" placeholder="9.5 CGPA">
-                                </div>
-                            </div>
-                        </div>
+                    <div class="text-center">
+                        <button type="button" onclick="UIManager.addQualificationField()" class="text-blue-600 hover:text-blue-800 font-bold py-2 px-4 rounded border border-blue-200 hover:border-blue-400 border-dashed bg-blue-50 transition w-full">
+                            <i class="fas fa-plus mr-2"></i> Add Another Qualification (PG, Masters, etc.)
+                        </button>
                     </div>
 
                     <!-- 12th / Diploma -->
@@ -395,33 +363,8 @@
                                         <th class="px-2 py-1">Score</th>
                                     </tr>
                                 </thead>
-                                <tbody class="divide-y divide-slate-100">
-                                    <!-- Ongoing -->
-                                    <tr id="preview-ongoing">
-                                        <td class="px-2 py-1 font-medium" data-bind="ongoing_degree"></td>
-                                        <td class="px-2 py-1" data-bind="ongoing_university"></td>
-                                        <td class="px-2 py-1" data-bind="ongoing_year"></td>
-                                        <td class="px-2 py-1">Ongoing</td>
-                                    </tr>
-                                    <!-- Completed -->
-                                    <tr id="preview-graduation">
-                                        <td class="px-2 py-1 font-medium" data-bind="degree"></td>
-                                        <td class="px-2 py-1" data-bind="university"></td>
-                                        <td class="px-2 py-1" data-bind="graduationDate"></td>
-                                        <td class="px-2 py-1" data-bind="gradScore"></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="px-2 py-1 font-medium">Class XII / Diploma</td>
-                                        <td class="px-2 py-1" data-bind="edu_12th_school"></td>
-                                        <td class="px-2 py-1" data-bind="edu_12th_year"></td>
-                                        <td class="px-2 py-1" data-bind="edu_12th_score"></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="px-2 py-1 font-medium">Class X</td>
-                                        <td class="px-2 py-1" data-bind="edu_10th_school"></td>
-                                        <td class="px-2 py-1" data-bind="edu_10th_year"></td>
-                                        <td class="px-2 py-1" data-bind="edu_10th_score"></td>
-                                    </tr>
+                                <tbody class="divide-y divide-slate-100" id="preview-edu-tbody">
+                                    <!-- Dynamic rows will be inserted here -->
                                 </tbody>
                             </table>
                         </div>
@@ -475,7 +418,7 @@
          * ------------------------------------------------------------------
          */
         const StorageService = {
-            KEY: 'resume_builder_data_v3', 
+            KEY: 'resume_builder_data_v5', // Updated Key
             
             save(data) {
                 try {
@@ -544,14 +487,13 @@
 
                 // Helper: Write Education Row
                 const writeEduRow = (qual, college, year, score) => {
-                    if(!college) return;
+                    if(!college || !qual) return;
                     doc.setFontSize(10);
                     doc.setFont('helvetica', 'bold');
                     doc.setTextColor(0,0,0);
                     doc.text(qual, margin, y);
                     
                     doc.setFont('helvetica', 'normal');
-                    const collegeWidth = doc.getTextWidth(college);
                     // Right align year and score
                     const yearScore = `${year}  |  ${score}`;
                     const rightX = pageWidth - margin - doc.getTextWidth(yearScore);
@@ -586,7 +528,6 @@
 
                 // 3. Education
                 writeHeader('Academic Qualifications');
-                // Header Row
                 doc.setFontSize(9);
                 doc.setFont('helvetica', 'bold');
                 doc.setTextColor(80, 80, 80);
@@ -595,16 +536,15 @@
                 doc.text("Year | Score", pageWidth - margin - 25, y);
                 y += 6;
 
-                // Optional Ongoing
-                if (data.ongoing_degree && data.ongoing_university) {
-                    writeEduRow(data.ongoing_degree, data.ongoing_university, data.ongoing_year || 'Pursuing', 'NA');
+                // Loop through dynamic qualifications
+                if (data.qualifications && data.qualifications.length > 0) {
+                    data.qualifications.forEach(q => {
+                        const yearText = q.status === 'Ongoing' ? `${q.year} (Expected)` : q.year;
+                        writeEduRow(q.degree, q.university, yearText, q.score);
+                    });
                 }
 
-                // Optional Graduation
-                if (data.degree && data.university) {
-                    writeEduRow(data.degree, data.university, data.graduationDate, data.gradScore);
-                }
-
+                // Static School entries
                 writeEduRow("Class XII / Diploma", data.edu_12th_school, data.edu_12th_year, data.edu_12th_score);
                 writeEduRow("Class X", data.edu_10th_school, data.edu_10th_year, data.edu_10th_score);
 
@@ -679,18 +619,130 @@
                 progressBar: document.getElementById('progress-bar'),
                 stepText: document.getElementById('step-indicator'),
                 toast: document.getElementById('toast'),
-                toastMsg: document.getElementById('toast-message')
+                toastMsg: document.getElementById('toast-message'),
+                qualificationsContainer: document.getElementById('qualifications-container')
             },
 
+            // --- Dynamic Qualification Logic ---
+            
+            renderQualifications(qualifications) {
+                const container = this.elements.qualificationsContainer;
+                container.innerHTML = ''; // Clear
+
+                if (!qualifications || qualifications.length === 0) {
+                    this.addQualificationField(); // Add default empty one
+                    return;
+                }
+
+                qualifications.forEach((q, index) => {
+                    this.addQualificationField(q, index);
+                });
+            },
+
+            // Updated to separate Degree & Status and handle dynamic labels
+            addQualificationField(data = { status: 'Completed' }, index = null) {
+                const container = this.elements.qualificationsContainer;
+                const count = container.children.length;
+                
+                const div = document.createElement('div');
+                div.className = "bg-slate-50 p-4 rounded-lg border border-slate-200 relative qualification-entry fade-in";
+                
+                // Set label text based on initial status
+                const yearLabel = data.status === 'Ongoing' ? 'Expected Completion Year' : 'Completion Year';
+                const yearPlaceholder = data.status === 'Ongoing' ? 'e.g. 2026' : 'e.g. 2024';
+
+                // HTML Template for a Qualification Entry
+                div.innerHTML = `
+                    <div class="absolute top-2 right-2">
+                        <button type="button" onclick="this.closest('.qualification-entry').remove()" class="text-red-500 hover:text-red-700 text-sm font-semibold">
+                            <i class="fas fa-trash"></i> Remove
+                        </button>
+                    </div>
+                    <h3 class="font-bold text-lg text-slate-700 mb-3 section-header">Higher Qualification ${count + 1}</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="md:col-span-2">
+                            <label class="text-sm font-semibold text-slate-600">College / University Name</label>
+                            <input type="text" value="${data.university || ''}" class="q-university form-input w-full p-2 rounded border border-slate-300 focus:border-green-500 outline-none" placeholder="e.g. IIT Bombay" required>
+                        </div>
+                        <div>
+                            <label class="text-sm font-semibold text-slate-600">Degree</label>
+                            <input type="text" value="${data.degree || ''}" class="q-degree form-input w-full p-2 rounded border border-slate-300 focus:border-green-500 outline-none" placeholder="e.g. B.Tech" required>
+                        </div>
+                        <div>
+                            <label class="text-sm font-semibold text-slate-600">Status</label>
+                            <select class="q-status form-input w-full p-2 rounded border border-slate-300 focus:border-green-500 outline-none" onchange="UIManager.updateYearLabel(this)">
+                                <option value="Completed" ${data.status === 'Completed' ? 'selected' : ''}>Completed</option>
+                                <option value="Ongoing" ${data.status === 'Ongoing' ? 'selected' : ''}>Ongoing</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="q-year-label text-sm font-semibold text-slate-600">${yearLabel}</label>
+                            <input type="text" value="${data.year || ''}" class="q-year form-input w-full p-2 rounded border border-slate-300 focus:border-green-500 outline-none" placeholder="${yearPlaceholder}" required>
+                        </div>
+                        <div>
+                            <label class="text-sm font-semibold text-slate-600">CGPA/%</label>
+                            <input type="text" value="${data.score || ''}" class="q-score form-input w-full p-2 rounded border border-slate-300 focus:border-green-500 outline-none" placeholder="9.5 / NA" required>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(div);
+            },
+
+            // Handles the label change when status dropdown changes
+            updateYearLabel(selectElement) {
+                const container = selectElement.closest('.grid');
+                const label = container.querySelector('.q-year-label');
+                const yearInput = container.querySelector('.q-year');
+                
+                if (selectElement.value === 'Ongoing') {
+                    label.innerText = 'Expected Completion Year';
+                    yearInput.placeholder = 'e.g. 2026';
+                } else {
+                    label.innerText = 'Completion Year';
+                    yearInput.placeholder = 'e.g. 2024';
+                }
+            },
+
+            // --- Standard Form Logic ---
+
             populateInputs(state) {
-                document.querySelectorAll('input, textarea').forEach(input => {
+                // Standard Inputs (excluding dynamic ones)
+                document.querySelectorAll('input:not(.q-university):not(.q-degree):not(.q-year):not(.q-score), textarea').forEach(input => {
                     if (state[input.name]) input.value = state[input.name];
                 });
+
+                // Dynamic Inputs
+                this.renderQualifications(state.qualifications);
             },
 
             getFormData(formId) {
                 const form = document.getElementById(formId);
                 if (!form) return {};
+                
+                // If this is the education form, we need custom scraping for the dynamic list
+                if (formId === 'form-education') {
+                    const staticData = {};
+                    // Get static fields (12th, 10th)
+                    const staticInputs = form.querySelectorAll('input:not(.q-university):not(.q-degree):not(.q-year):not(.q-score):not(.q-status)');
+                    staticInputs.forEach(input => staticData[input.name] = input.value);
+
+                    // Get dynamic qualifications
+                    const qualifications = [];
+                    const entries = form.querySelectorAll('.qualification-entry');
+                    entries.forEach(entry => {
+                        qualifications.push({
+                            university: entry.querySelector('.q-university').value,
+                            degree: entry.querySelector('.q-degree').value,
+                            status: entry.querySelector('.q-status').value, // Capture Status
+                            year: entry.querySelector('.q-year').value,
+                            score: entry.querySelector('.q-score').value
+                        });
+                    });
+
+                    return { ...staticData, qualifications };
+                }
+
+                // Standard FormData for other forms
                 const formData = new FormData(form);
                 return Object.fromEntries(formData.entries());
             },
@@ -729,6 +781,7 @@
             },
 
             renderPreview(state) {
+                // Static bindings
                 const binds = document.querySelectorAll('[data-bind]');
                 binds.forEach(el => {
                     const key = el.getAttribute('data-bind');
@@ -739,15 +792,41 @@
                     }
                 });
 
-                // Conditional rendering for table rows
-                const ongoingRow = document.getElementById('preview-ongoing');
-                if(ongoingRow) {
-                    ongoingRow.style.display = (state.ongoing_degree && state.ongoing_university) ? 'table-row' : 'none';
-                }
-                
-                const gradRow = document.getElementById('preview-graduation');
-                if(gradRow) {
-                    gradRow.style.display = (state.degree && state.university) ? 'table-row' : 'none';
+                // Education Table Dynamic Rows
+                const tbody = document.getElementById('preview-edu-tbody');
+                if (tbody) {
+                    let html = '';
+                    
+                    if (state.qualifications && state.qualifications.length > 0) {
+                        state.qualifications.forEach(q => {
+                            // Show "Expected" in preview if ongoing
+                            const yearDisplay = q.status === 'Ongoing' ? `${q.year} (Expected)` : q.year;
+                            html += `
+                                <tr>
+                                    <td class="px-2 py-1 font-medium">${q.degree}</td>
+                                    <td class="px-2 py-1">${q.university}</td>
+                                    <td class="px-2 py-1">${yearDisplay}</td>
+                                    <td class="px-2 py-1">${q.score}</td>
+                                </tr>
+                            `;
+                        });
+                    }
+
+                    html += `
+                        <tr>
+                            <td class="px-2 py-1 font-medium">Class XII / Diploma</td>
+                            <td class="px-2 py-1">${state.edu_12th_school || ''}</td>
+                            <td class="px-2 py-1">${state.edu_12th_year || ''}</td>
+                            <td class="px-2 py-1">${state.edu_12th_score || ''}</td>
+                        </tr>
+                        <tr>
+                            <td class="px-2 py-1 font-medium">Class X</td>
+                            <td class="px-2 py-1">${state.edu_10th_school || ''}</td>
+                            <td class="px-2 py-1">${state.edu_10th_year || ''}</td>
+                            <td class="px-2 py-1">${state.edu_10th_score || ''}</td>
+                        </tr>
+                    `;
+                    tbody.innerHTML = html;
                 }
             },
 
@@ -797,8 +876,9 @@
         const App = {
             state: {
                 fullName: '', email: '', phone: '', address: '', linkedin: '', languages: '', summary: '',
-                ongoing_university: '', ongoing_degree: '', ongoing_year: '',
-                university: '', degree: '', graduationDate: '', gradScore: '',
+                // Array for higher edu
+                qualifications: [],
+                // Static School
                 edu_12th_school: '', edu_12th_stream: '', edu_12th_year: '', edu_12th_score: '',
                 edu_10th_school: '', edu_10th_board: '', edu_10th_year: '', edu_10th_score: '',
                 workExperience: '', projects: '', 
@@ -809,7 +889,13 @@
                 const saved = StorageService.load();
                 if (saved) {
                     this.state = { ...this.state, ...saved };
+                    // Ensure qualifications is an array even if old state didn't have it
+                    if(!Array.isArray(this.state.qualifications)) this.state.qualifications = [];
+                    
                     UIManager.populateInputs(this.state);
+                } else {
+                    // Init with one empty qualification field
+                    UIManager.addQualificationField();
                 }
             },
 
