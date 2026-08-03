@@ -5,86 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Professional Resume Builder</title>
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-    
+
     <!-- Tailwind CSS for styling -->
     <script src="https://cdn.tailwindcss.com"></script>
-    
+
     <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+
     <!-- jsPDF for PDF generation -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
-        
-        body {
-            font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            min-height: 100vh;
-        }
-
-        /* Glassmorphism Container */
-        .glass-panel {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-        }
-
-        /* Utility: Fade Animation */
-        .fade-in {
-            animation: fadeIn 0.4s ease-out forwards;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Utility: Custom Scrollbar */
-        textarea::-webkit-scrollbar { width: 8px; }
-        textarea::-webkit-scrollbar-track { background: #f1f1f1; }
-        textarea::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
-        textarea::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
-        
-        /* Marquee styling */
-        .marquee-container {
-            overflow: hidden;
-            white-space: nowrap;
-            background-color: rgba(254, 243, 199, 0.5); /* Light yellow tint */
-            padding: 5px 0;
-            margin-bottom: 10px;
-            border-radius: 4px;
-        }
-        .marquee-content {
-            display: inline-block;
-            padding-left: 100%;
-            animation: marquee 20s linear infinite;
-            color: #b45309; /* Dark yellow/orange */
-            font-weight: 500;
-        }
-        @keyframes marquee {
-            0% { transform: translate(0, 0); }
-            100% { transform: translate(-100%, 0); }
-        }
-        
-        /* Indian Context Highlights */
-        .section-header {
-            border-left: 4px solid #16a34a;
-            padding-left: 10px;
-            color: #1e293b;
-        }
-    </style>
+    <!-- Application Styles -->
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body class="flex flex-col items-center justify-center p-2 sm:p-4">
 
     <!-- APP CONTAINER -->
     <div id="app-container" class="w-full max-w-4xl glass-panel rounded-xl sm:rounded-2xl overflow-hidden relative fade-in my-2 sm:my-0">
-        
+
         <!-- HEADER MODULE -->
         <div id="header-section" class="hidden bg-slate-800 text-white p-4 sm:p-6">
             <div class="flex justify-between items-center mb-4">
@@ -101,7 +39,6 @@
 
             <!-- VIEW: Landing Page -->
             <div id="step-landing" class="step-view text-center py-4 sm:py-6">
-                <!-- Restored Marquee -->
                 <div class="marquee-container mb-6 text-sm sm:text-base">
                     <div class="marquee-content">
                         More features will be rollout in the upcoming days. Till then experience our Simplicitic <strong>Resume Builder</strong>.
@@ -119,23 +56,24 @@
                 <div class="text-left max-w-2xl mx-auto bg-white/50 p-4 sm:p-6 rounded-xl border border-slate-200 mb-8 shadow-sm">
                     <h2 class="text-lg sm:text-xl font-bold text-slate-800 mb-3 border-b border-slate-200 pb-2">Why Choose Our Resume Builder?</h2>
                     <p class="text-slate-600 mb-4 text-sm hidden sm:block">Unlock endless possibilities with our easy-to-use Resume Builder. Craft a standout resume and land your dream job.</p>
-                    
+
                     <ul class="space-y-3 mb-6">
                         <li class="flex items-start"><i class="fas fa-check-circle text-green-500 mt-1 mr-3 min-w-[16px]"></i><span class="text-slate-700 text-sm">Intuitive interface for effortless resume creation.</span></li>
                         <li class="flex items-start"><i class="fas fa-check-circle text-green-500 mt-1 mr-3 min-w-[16px]"></i><span class="text-slate-700 text-sm">Guided steps to capture your personal and educational details.</span></li>
                         <li class="flex items-start"><i class="fas fa-check-circle text-green-500 mt-1 mr-3 min-w-[16px]"></i><span class="text-slate-700 text-sm">Generate a polished and professional resume at the click of a button.</span></li>
+                        <li class="flex items-start"><i class="fas fa-check-circle text-green-500 mt-1 mr-3 min-w-[16px]"></i><span class="text-slate-700 text-sm">13 resume templates grouped by style &amp; profession — choose the perfect match.</span></li>
                         <li class="flex items-start"><i class="fas fa-check-circle text-green-500 mt-1 mr-3 min-w-[16px]"></i><span class="text-slate-700 text-sm">Download your resume in PDF format for easy sharing.</span></li>
                         <li class="flex items-start"><i class="fas fa-check-circle text-green-500 mt-1 mr-3 min-w-[16px]"></i><span class="text-slate-800 font-semibold text-sm">No Credit Card Required. No Payment. No login. No Signup.</span></li>
                         <li class="flex items-start"><i class="fas fa-check-circle text-green-500 mt-1 mr-3 min-w-[16px]"></i><span class="text-slate-800 font-semibold text-sm">Only Enter Your Details and Resume is done.</span></li>
                     </ul>
-                    
+
                     <p class="text-slate-600 italic text-center font-medium text-sm">Start building your future now.</p>
                 </div>
 
                 <button onclick="App.navigateTo(1)" class="w-full sm:w-auto bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-10 rounded-lg transition shadow-lg text-lg transform hover:-translate-y-1">
                     Create Resume <i class="fas fa-arrow-right ml-2"></i>
                 </button>
-                
+
                 <div class="mt-8 text-xs text-slate-400 border-t pt-4">
                     &copy; 2024 Resume Builder - by Suryanarayan Panda. All rights reserved.
                 </div>
@@ -156,11 +94,10 @@
                         </div>
                         <div>
                             <label class="block text-slate-700 font-semibold mb-2" for="phone">Phone (+91)</label>
-                            <!-- Validation: Only numbers allowed -->
                             <input type="tel" name="phone" id="phoneInput" class="form-input w-full px-4 py-3 rounded-lg border border-slate-300 focus:border-green-500 outline-none transition" placeholder="9876543210" maxlength="10" oninput="UIManager.validateNumberInput(this)" required>
                         </div>
                     </div>
-                    
+
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
                             <label class="block text-slate-700 font-semibold mb-2" for="linkedin"><i class="fab fa-linkedin text-blue-600 mr-1"></i> LinkedIn <span class="text-xs text-slate-400 font-normal">(Optional)</span></label>
@@ -182,12 +119,11 @@
                         <textarea name="address" rows="2" class="form-input w-full px-4 py-3 rounded-lg border border-slate-300 focus:border-green-500 outline-none transition resize-none" placeholder="Flat No, Bldg Name, City, State - Pincode" required></textarea>
                     </div>
 
-                    <!-- Professional Summary -->
                     <div>
                         <label class="block text-slate-700 font-semibold mb-2" for="summary">Professional Summary / Career Objective</label>
                         <textarea name="summary" rows="3" class="form-input w-full px-4 py-3 rounded-lg border border-slate-300 focus:border-green-500 outline-none transition resize-none" placeholder="A brief summary of your career goals and achievements..." required></textarea>
                     </div>
-                    
+
                     <div class="flex flex-col-reverse sm:flex-row justify-between gap-3 mt-8 pt-4">
                         <button type="button" onclick="App.navigateTo(0)" class="text-slate-500 hover:text-slate-700 font-semibold px-4 py-2 w-full sm:w-auto text-center">Home</button>
                         <button type="button" onclick="App.validateAndProceed(1, 'form-personal')" class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-6 rounded-lg transition shadow-md w-full sm:w-auto text-center">Next <i class="fas fa-arrow-right ml-1"></i></button>
@@ -199,10 +135,9 @@
             <div id="step-education" class="step-view hidden">
                 <h2 class="text-xl sm:text-2xl font-bold text-slate-800 mb-6 border-b pb-2">Academic Qualifications</h2>
                 <p class="text-sm text-slate-500 mb-4 bg-yellow-50 p-2 rounded border border-yellow-200"><i class="fas fa-info-circle mr-1"></i> Add your qualifications below. Select 'Ongoing' if you are currently pursuing a degree.</p>
-                
+
                 <form id="form-education" class="space-y-6">
-                    
-                    <!-- Dynamic Qualifications Container -->
+
                     <div id="qualifications-container" class="space-y-4">
                         <!-- Items injected by JS -->
                     </div>
@@ -213,7 +148,6 @@
                         </button>
                     </div>
 
-                    <!-- 12th / Diploma -->
                     <div class="bg-slate-50 p-4 rounded-lg border border-slate-200">
                         <h3 class="font-bold text-lg text-slate-700 mb-3 section-header">Class XII / Diploma</h3>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -242,7 +176,6 @@
                         </div>
                     </div>
 
-                    <!-- 10th -->
                     <div class="bg-slate-50 p-4 rounded-lg border border-slate-200">
                         <h3 class="font-bold text-lg text-slate-700 mb-3 section-header">Class X</h3>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -319,8 +252,7 @@
                         <label class="block text-slate-700 font-semibold mb-2" for="skills">Technical Skills</label>
                         <textarea name="skills" rows="3" class="form-input w-full px-4 py-3 rounded-lg border border-slate-300 focus:border-green-500 outline-none transition resize-none" placeholder="e.g. Java, Python, HTML, CSS, SQL, Communication..." required></textarea>
                     </div>
-                    
-                    <!-- Certifications & Training -->
+
                     <div>
                         <label class="block text-slate-700 font-semibold mb-2" for="certifications">Certifications & Training</label>
                         <textarea name="certifications" rows="3" class="form-input w-full px-4 py-3 rounded-lg border border-slate-300 focus:border-green-500 outline-none transition resize-none" placeholder="• Certified Java Developer (Oracle)&#10;• Web Development Bootcamp (Udemy)"></textarea>
@@ -339,62 +271,33 @@
 
             <!-- VIEW: Preview & Download -->
             <div id="step-preview" class="step-view hidden">
-                <div class="text-center mb-6">
+                <div class="mb-6">
                     <h2 class="text-2xl font-bold text-slate-800">Resume Generated!</h2>
-                    <p class="text-slate-600">Review your Resume below.</p>
+                    <p class="text-slate-600">Pick a template from the left — your resume previews <strong>live</strong> on the right. Download as PDF when happy.</p>
                 </div>
 
-                <div id="preview-paper" class="bg-white border border-slate-200 rounded shadow-lg p-4 sm:p-8 max-w-2xl mx-auto mb-8 text-left transition-all hover:shadow-xl">
-                    <!-- Dynamic Content Injected Here by UIManager -->
-                    <div class="border-b-2 border-slate-800 pb-4 mb-4">
-                        <h1 class="text-3xl font-bold text-slate-900 uppercase" data-bind="fullName"></h1>
-                        <div id="preview-contact-section" class="text-sm text-slate-600 mt-2 flex flex-col gap-1">
-                            <!-- Populated via JS -->
-                        </div>
-                        <div class="mt-4 text-sm text-slate-700 italic border-l-4 border-green-500 pl-3">
-                            <span data-bind="summary"></span>
-                        </div>
-                    </div>
-                    
-                    <div class="mb-4">
-                        <h3 class="text-lg font-bold text-slate-800 border-b border-slate-300 mb-2 uppercase tracking-wide">Academic Qualifications</h3>
-                        <div class="overflow-x-auto">
-                            <table class="min-w-full text-sm text-left text-slate-600">
-                                <thead class="bg-slate-100 text-xs uppercase font-bold">
-                                    <tr>
-                                        <th class="px-2 py-1">Qualification</th>
-                                        <th class="px-2 py-1">Institute</th>
-                                        <th class="px-2 py-1">Year</th>
-                                        <th class="px-2 py-1">Score</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="divide-y divide-slate-100" id="preview-edu-tbody">
-                                    <!-- Dynamic rows will be inserted here -->
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+                <div class="lg:grid lg:grid-cols-[320px_minmax(0,1fr)] lg:gap-8 lg:items-start">
 
-                    <div class="mb-4">
-                        <h3 class="text-lg font-bold text-slate-800 border-b border-slate-300 mb-2 uppercase tracking-wide">Work Experience</h3>
-                        <p class="text-slate-700 whitespace-pre-line text-sm" data-bind="workExperience"></p>
-                    </div>
+                    <!-- LEFT: Template Picker (grouped by category) -->
+                    <aside class="mb-8 lg:mb-0">
+                        <h3 class="text-lg font-bold text-slate-800 mb-4"><i class="fas fa-palette mr-2 text-green-600"></i>Choose a Template</h3>
+                        <div id="template-picker" class="space-y-5 lg:max-h-[74vh] lg:overflow-y-auto lg:pr-2 lg:pb-2">
+                            <!-- Template cards injected by JS -->
+                        </div>
+                    </aside>
 
-                    <div class="mb-4">
-                        <h3 class="text-lg font-bold text-slate-800 border-b border-slate-300 mb-2 uppercase tracking-wide">Projects</h3>
-                        <p class="text-slate-700 whitespace-pre-line text-sm" data-bind="projects"></p>
-                    </div>
+                    <!-- RIGHT: Live Preview (sticky) -->
+                    <div class="lg:sticky lg:top-6">
+                        <div id="preview-paper">
+                            <!-- Template preview injected by UIManager -->
+                        </div>
 
-                    <div class="mb-4">
-                        <h3 class="text-lg font-bold text-slate-800 border-b border-slate-300 mb-2 uppercase tracking-wide">Technical Skills & Certifications</h3>
-                        <p class="text-slate-700 text-sm"><strong>Technical:</strong> <span data-bind="skills"></span></p>
-                        <p class="text-slate-700 text-sm mt-1"><strong>Certifications:</strong> <span data-bind="certifications" class="whitespace-pre-line"></span></p>
-                        <p class="text-slate-700 text-sm mt-1"><strong>Languages:</strong> <span data-bind="languages"></span></p>
-                    </div>
-                    
-                    <div>
-                        <h3 class="text-lg font-bold text-slate-800 border-b border-slate-300 mb-2 uppercase tracking-wide">Extracurricular Activities</h3>
-                        <p class="text-slate-700 text-sm" data-bind="actHob"></p>
+                        <!-- Prev / Next controls -->
+                        <div class="flex items-center justify-center gap-3 mt-4 mb-6">
+                            <button type="button" onclick="App.cycleTemplate(-1)" class="tpl-caption-btn" title="Previous template"><i class="fas fa-chevron-left"></i></button>
+                            <span id="template-cap" class="tpl-caption">Template</span>
+                            <button type="button" onclick="App.cycleTemplate(1)" class="tpl-caption-btn" title="Next template"><i class="fas fa-chevron-right"></i></button>
+                        </div>
                     </div>
                 </div>
 
@@ -414,662 +317,10 @@
         <span id="toast-message"></span>
     </div>
 
-    <!-- MODULAR JAVASCRIPT ARCHITECTURE -->
-    <script>
-        /**
-         * ------------------------------------------------------------------
-         * MODULE 1: StorageService
-         * Responsibility: Handle saving/loading state from sessionStorage
-         * ------------------------------------------------------------------
-         */
-        const StorageService = {
-            KEY: 'resume_builder_data_v11', 
-            
-            save(data) {
-                try {
-                    sessionStorage.setItem(this.KEY, JSON.stringify(data));
-                } catch (e) {
-                    console.error("Storage failed:", e);
-                }
-            },
-
-            load() {
-                try {
-                    const data = sessionStorage.getItem(this.KEY);
-                    return data ? JSON.parse(data) : null;
-                } catch (e) {
-                    console.error("Load failed:", e);
-                    return null;
-                }
-            },
-
-            clear() {
-                sessionStorage.removeItem(this.KEY);
-            }
-        };
-
-        /**
-         * ------------------------------------------------------------------
-         * MODULE 2: PDFService
-         * Responsibility: Generate PDF using jsPDF based on provided data
-         * ------------------------------------------------------------------
-         */
-        const PDFService = {
-            generate(data) {
-                if (!window.jspdf) {
-                    alert("PDF Library not loaded properly.");
-                    return;
-                }
-
-                const { jsPDF } = window.jspdf;
-                const doc = new jsPDF('p', 'mm', 'a4');
-                
-                // --- Constants ---
-                const margin = 20;
-                let y = 20;
-                const pageWidth = doc.internal.pageSize.getWidth();
-                const pageHeight = doc.internal.pageSize.getHeight();
-                const maxW = pageWidth - (margin * 2);
-
-                // Helper: Text Writing
-                const writeText = (text, size, weight = 'normal', color = [0,0,0], indent = 0) => {
-                    doc.setFontSize(size);
-                    doc.setFont('helvetica', weight);
-                    doc.setTextColor(...color);
-                    const lines = doc.splitTextToSize(text || '', maxW - indent);
-                    doc.text(lines, margin + indent, y);
-                    y += (lines.length * size * 0.3527 * 1.2) + 2; 
-                };
-
-                // Helper: Section Header
-                const writeHeader = (title) => {
-                    y += 4;
-                    doc.setDrawColor(200);
-                    doc.line(margin, y, pageWidth - margin, y);
-                    y += 6;
-                    doc.setFont('helvetica', 'bold');
-                    doc.setFontSize(12);
-                    doc.setTextColor(60, 60, 60);
-                    doc.text(title.toUpperCase(), margin, y);
-                    y += 6;
-                };
-
-                // Helper: Write Education Row
-                const writeEduRow = (qual, college, year, score) => {
-                    if(!college || !qual) return;
-                    
-                    const col1Width = 55;
-                    const col2Width = 70;
-                    const col3Width = 35;
-                    const col4Width = 20;
-
-                    const col1X = margin;
-                    const col2X = margin + col1Width;
-                    const col3X = margin + col1Width + col2Width;
-                    const col4X = pageWidth - margin;
-
-                    doc.setFontSize(9);
-                    doc.setFont('helvetica', 'normal');
-                    doc.setTextColor(55, 65, 81);
-
-                    const qualLines = doc.splitTextToSize(qual, col1Width - 2);
-                    const collegeLines = doc.splitTextToSize(college, col2Width - 2);
-                    
-                    const maxLines = Math.max(qualLines.length, collegeLines.length);
-                    const rowHeight = maxLines * 4;
-
-                    // Check for page break
-                    if (y + rowHeight > pageHeight - margin) {
-                        doc.addPage();
-                        y = margin;
-                    }
-
-                    doc.text(qualLines, col1X, y);
-                    doc.text(collegeLines, col2X, y);
-                    doc.text(year.toString(), col3X, y);
-                    doc.text(score.toString(), col4X, y, { align: 'right' });
-                    
-                    y += rowHeight + 2;
-                };
-
-                // 1. Header Info
-                doc.setFont('helvetica', 'bold');
-                doc.setFontSize(24);
-                doc.setTextColor(44, 62, 80);
-                doc.text(data.fullName.toUpperCase(), margin, y);
-                y += 8;
-
-                // Accent Line
-                doc.setDrawColor(16, 185, 129); 
-                doc.setLineWidth(1);
-                doc.line(margin, y, margin + 40, y); 
-                y += 6;
-
-                doc.setFontSize(9);
-                doc.setFont('helvetica', 'normal');
-                doc.setTextColor(55, 65, 81);
-                
-                // Contact Info
-                let contactParts = [];
-                if (data.email) contactParts.push(data.email);
-                if (data.phone) contactParts.push(data.phone);
-                if (data.address) contactParts.push(data.address);
-                
-                const contactStr = contactParts.join("  •  ");
-                const lines = doc.splitTextToSize(contactStr, maxW);
-                doc.text(lines, margin, y);
-                y += (lines.length * 4) + 2;
-
-                // Links
-                let linksParts = [];
-                if (data.linkedin) linksParts.push(`LinkedIn: ${data.linkedin}`);
-                if (data.github) linksParts.push(`GitHub: ${data.github}`);
-                
-                if (linksParts.length > 0) {
-                    doc.setTextColor(107, 114, 128);
-                    const linkStr = linksParts.join("  •  ");
-                    const linkLines = doc.splitTextToSize(linkStr, maxW);
-                    doc.text(linkLines, margin, y);
-                    y += (linkLines.length * 4) + 2;
-                }
-                
-                y += 4;
-
-                // 2. Summary
-                if (data.summary) {
-                    doc.setFont('helvetica', 'italic');
-                    doc.setTextColor(55, 65, 81);
-                    const sumLines = doc.splitTextToSize(data.summary, maxW);
-                    doc.text(sumLines, margin, y);
-                    y += (sumLines.length * 4) + 4;
-                }
-
-                // 3. Education
-                writeHeader('Academic Qualifications');
-                
-                // Table Header
-                doc.setFontSize(9);
-                doc.setFont('helvetica', 'bold');
-                doc.setTextColor(44, 62, 80);
-                
-                const col1X = margin;
-                const col2X = margin + 55;
-                const col3X = margin + 55 + 70;
-                const col4X = pageWidth - margin;
-
-                doc.text("Qualification", col1X, y);
-                doc.text("Institute", col2X, y);
-                doc.text("Year", col3X, y);
-                doc.text("Score", col4X, y, { align: 'right' });
-                y += 5;
-
-                // Dynamic Rows
-                if (data.qualifications && data.qualifications.length > 0) {
-                    data.qualifications.forEach(q => {
-                        const yearTxt = q.status === 'Ongoing' ? `Exp. ${q.year}` : `${q.year}`;
-                        writeEduRow(q.degree, q.university, yearTxt, q.score);
-                    });
-                }
-
-                // Static School entries with Board and Stream
-                let school12 = data.edu_12th_school;
-                if (data.edu_12th_board) school12 += `, ${data.edu_12th_board}`;
-                if (data.edu_12th_stream) school12 += ` (${data.edu_12th_stream})`;
-
-                const school10 = data.edu_10th_school + (data.edu_10th_board ? `, ${data.edu_10th_board}` : '');
-
-                writeEduRow("Class XII / Diploma", school12, data.edu_12th_year, data.edu_12th_score + "%");
-                writeEduRow("Class X", school10, data.edu_10th_year, data.edu_10th_score + "%");
-
-                y += 2;
-
-                // 4. Work Experience
-                if (data.workExperience && data.workExperience.trim().length > 0) {
-                    writeHeader('Work Experience');
-                    doc.setFont('helvetica', 'normal');
-                    doc.setFontSize(10);
-                    doc.setTextColor(55, 65, 81);
-                    const splitWork = doc.splitTextToSize(data.workExperience, maxW);
-                    doc.text(splitWork, margin, y);
-                    y += (splitWork.length * 5) + 2;
-                }
-
-                // 5. Projects
-                if (data.projects && data.projects.trim().length > 0) {
-                    writeHeader('Projects');
-                    doc.setFont('helvetica', 'normal');
-                    doc.setFontSize(10);
-                    doc.setTextColor(55, 65, 81);
-                    const splitProj = doc.splitTextToSize(data.projects, maxW);
-                    doc.text(splitProj, margin, y);
-                    y += (splitProj.length * 5) + 2;
-                }
-
-                // 6. Skills
-                writeHeader('Technical Skills & Certifications');
-                if(data.skills) {
-                    doc.setFont('helvetica', 'bold');
-                    doc.setFontSize(10);
-                    doc.setTextColor(0,0,0);
-                    doc.text("Technical Skills:", margin, y);
-                    doc.setFont('helvetica', 'normal');
-                    const skillLines = doc.splitTextToSize(data.skills, maxW - 35);
-                    doc.text(skillLines, margin + 35, y);
-                    y += (skillLines.length * 5) + 2;
-                }
-
-                if(data.certifications) {
-                    doc.setFont('helvetica', 'bold');
-                    doc.text("Certifications:", margin, y);
-                    doc.setFont('helvetica', 'normal');
-                    const certLines = doc.splitTextToSize(data.certifications, maxW - 35);
-                    doc.text(certLines, margin + 35, y);
-                    y += (certLines.length * 5) + 2;
-                }
-                
-                if(data.languages) {
-                    doc.setFont('helvetica', 'bold');
-                    doc.text("Languages:", margin, y);
-                    doc.setFont('helvetica', 'normal');
-                    doc.text(data.languages, margin + 35, y);
-                    y += 7;
-                }
-
-                // 7. Hobbies
-                if(data.actHob) {
-                    writeHeader('Extracurricular Activities');
-                    doc.setFont('helvetica', 'normal');
-                    doc.setFontSize(10);
-                    doc.setTextColor(55, 65, 81);
-                    const splitHob = doc.splitTextToSize(data.actHob, maxW);
-                    doc.text(splitHob, margin, y);
-                }
-
-                // Footer
-                const totalPages = doc.internal.getNumberOfPages();
-                for(let i = 1; i <= totalPages; i++) {
-                    doc.setPage(i);
-                    doc.setFontSize(8);
-                    doc.setTextColor(150);
-                    doc.text("Generated by Resume Builder", pageWidth/2, pageHeight - 10, { align: 'center' });
-                }
-
-                // Download
-                doc.save(`${data.fullName.replace(/\s+/g, '_')}_Resume.pdf`);
-            }
-        };
-
-        /**
-         * ------------------------------------------------------------------
-         * MODULE 3: UIManager
-         * Responsibility: DOM manipulation, View Switching, Toast Notifications
-         * ------------------------------------------------------------------
-         */
-        const UIManager = {
-            views: ['step-landing', 'step-personal', 'step-education', 'step-work', 'step-projects', 'step-extra', 'step-preview'],
-            
-            elements: {
-                header: document.getElementById('header-section'),
-                progressBar: document.getElementById('progress-bar'),
-                stepText: document.getElementById('step-indicator'),
-                toast: document.getElementById('toast'),
-                toastMsg: document.getElementById('toast-message'),
-                qualificationsContainer: document.getElementById('qualifications-container')
-            },
-
-            // --- Dynamic Qualification Logic ---
-            
-            renderQualifications(qualifications) {
-                const container = this.elements.qualificationsContainer;
-                container.innerHTML = ''; // Clear
-
-                if (!qualifications || qualifications.length === 0) {
-                    this.addQualificationField(); // Add default empty one
-                    return;
-                }
-
-                qualifications.forEach((q, index) => {
-                    this.addQualificationField(q, index);
-                });
-            },
-
-            // Helper for number validation
-            validateNumberInput(input) {
-                input.value = input.value.replace(/[^0-9]/g, '');
-            },
-
-            validateDecimalInput(input) {
-                input.value = input.value.replace(/[^0-9.]/g, '');
-            },
-
-            // Updated to separate Degree & Status and handle dynamic labels
-            addQualificationField(data = { status: 'Completed' }, index = null) {
-                const container = this.elements.qualificationsContainer;
-                const count = container.children.length;
-                
-                const div = document.createElement('div');
-                div.className = "bg-slate-50 p-4 rounded-lg border border-slate-200 relative qualification-entry fade-in";
-                
-                // Set label text based on initial status
-                const yearLabel = data.status === 'Ongoing' ? 'Expected Completion Year' : 'Completion Year';
-                const yearPlaceholder = data.status === 'Ongoing' ? 'e.g. 2026' : 'e.g. 2024';
-
-                // HTML Template for a Qualification Entry
-                div.innerHTML = `
-                    <div class="absolute top-2 right-2">
-                        <button type="button" onclick="this.closest('.qualification-entry').remove()" class="text-red-500 hover:text-red-700 text-sm font-semibold">
-                            <i class="fas fa-trash"></i> Remove
-                        </button>
-                    </div>
-                    <h3 class="font-bold text-lg text-slate-700 mb-3 section-header">Higher Qualification ${count + 1}</h3>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div class="md:col-span-2">
-                            <label class="text-sm font-semibold text-slate-600">College / University Name</label>
-                            <input type="text" value="${data.university || ''}" class="q-university form-input w-full p-2 rounded border border-slate-300 focus:border-green-500 outline-none" placeholder="e.g. IIT Bombay" required>
-                        </div>
-                        <div>
-                            <label class="text-sm font-semibold text-slate-600">Degree</label>
-                            <input type="text" value="${data.degree || ''}" class="q-degree form-input w-full p-2 rounded border border-slate-300 focus:border-green-500 outline-none" placeholder="e.g. B.Tech" required>
-                        </div>
-                        <div>
-                            <label class="text-sm font-semibold text-slate-600">Status</label>
-                            <select class="q-status form-input w-full p-2 rounded border border-slate-300 focus:border-green-500 outline-none" onchange="UIManager.updateYearLabel(this)">
-                                <option value="Completed" ${data.status === 'Completed' ? 'selected' : ''}>Completed</option>
-                                <option value="Ongoing" ${data.status === 'Ongoing' ? 'selected' : ''}>Ongoing</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="q-year-label text-sm font-semibold text-slate-600">${yearLabel}</label>
-                            <input type="text" value="${data.year || ''}" class="q-year form-input w-full p-2 rounded border border-slate-300 focus:border-green-500 outline-none" placeholder="${yearPlaceholder}" oninput="UIManager.validateNumberInput(this)" maxlength="4" required>
-                        </div>
-                        <div>
-                            <label class="text-sm font-semibold text-slate-600">CGPA/%</label>
-                            <input type="text" value="${data.score || ''}" class="q-score form-input w-full p-2 rounded border border-slate-300 focus:border-green-500 outline-none" placeholder="9.5 / 85" oninput="UIManager.validateDecimalInput(this)" required>
-                        </div>
-                    </div>
-                `;
-                container.appendChild(div);
-            },
-
-            // Handles the label change when status dropdown changes
-            updateYearLabel(selectElement) {
-                const container = selectElement.closest('.grid');
-                const label = container.querySelector('.q-year-label');
-                const yearInput = container.querySelector('.q-year');
-                
-                if (selectElement.value === 'Ongoing') {
-                    label.innerText = 'Expected Completion Year';
-                    yearInput.placeholder = 'e.g. 2026';
-                } else {
-                    label.innerText = 'Completion Year';
-                    yearInput.placeholder = 'e.g. 2024';
-                }
-            },
-
-            // --- Standard Form Logic ---
-
-            populateInputs(state) {
-                // Standard Inputs (excluding dynamic ones)
-                document.querySelectorAll('input:not(.q-university):not(.q-degree):not(.q-year):not(.q-score):not(.q-status), textarea').forEach(input => {
-                    if (state[input.name]) input.value = state[input.name];
-                });
-
-                // Dynamic Inputs
-                this.renderQualifications(state.qualifications);
-            },
-
-            getFormData(formId) {
-                const form = document.getElementById(formId);
-                if (!form) return {};
-                
-                // If this is the education form, we need custom scraping for the dynamic list
-                if (formId === 'form-education') {
-                    const staticData = {};
-                    // Get static fields (12th, 10th)
-                    const staticInputs = form.querySelectorAll('input:not(.q-university):not(.q-degree):not(.q-year):not(.q-score):not(.q-status)');
-                    staticInputs.forEach(input => staticData[input.name] = input.value);
-
-                    // Get dynamic qualifications
-                    const qualifications = [];
-                    const entries = form.querySelectorAll('.qualification-entry');
-                    entries.forEach(entry => {
-                        qualifications.push({
-                            university: entry.querySelector('.q-university').value,
-                            degree: entry.querySelector('.q-degree').value,
-                            status: entry.querySelector('.q-status').value, // Capture Status
-                            year: entry.querySelector('.q-year').value,
-                            score: entry.querySelector('.q-score').value
-                        });
-                    });
-
-                    return { ...staticData, qualifications };
-                }
-
-                // Standard FormData for other forms
-                const formData = new FormData(form);
-                return Object.fromEntries(formData.entries());
-            },
-
-            showView(index) {
-                this.views.forEach(id => {
-                    const el = document.getElementById(id);
-                    el.classList.add('hidden');
-                    el.classList.remove('fade-in');
-                });
-
-                const active = document.getElementById(this.views[index]);
-                active.classList.remove('hidden');
-                void active.offsetWidth; 
-                active.classList.add('fade-in');
-
-                this.updateHeader(index);
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            },
-
-            updateHeader(index) {
-                if (index === 0) {
-                    this.elements.header.classList.add('hidden');
-                } else {
-                    this.elements.header.classList.remove('hidden');
-                    const totalSteps = this.views.length - 2; 
-                    let currentStep = index;
-                    if(index === this.views.length - 1) currentStep = totalSteps + 1;
-
-                    let pct = Math.floor((index / (this.views.length - 1)) * 100);
-                    if (pct > 100) pct = 100;
-                    
-                    this.elements.progressBar.style.width = `${pct}%`;
-                    this.elements.stepText.innerText = index === this.views.length - 1 ? 'Preview' : `Step ${index} of ${this.views.length - 2}`;
-                }
-            },
-
-            renderPreview(state) {
-                // Static bindings
-                const binds = document.querySelectorAll('[data-bind]');
-                binds.forEach(el => {
-                    const key = el.getAttribute('data-bind');
-                    if (state[key]) {
-                        el.innerText = state[key];
-                    } else {
-                        el.innerText = ''; 
-                    }
-                });
-
-                // Conditional Contact Info Logic
-                const contactSection = document.getElementById('preview-contact-section');
-                // Use a flex container for Email and Phone to keep them responsive
-                // whitespace-nowrap on inner spans ensures Icon + Text stay together
-                let contactHtml = `
-                    <div class="flex flex-wrap items-center gap-x-2 gap-y-1">
-                        <span class="whitespace-nowrap flex items-center"><i class="fas fa-envelope mr-2 text-slate-500"></i> ${state.email}</span>
-                        <span class="hidden sm:inline text-slate-400">|</span>
-                        <span class="whitespace-nowrap flex items-center"><i class="fas fa-phone mr-2 text-slate-500"></i> ${state.phone}</span>
-                    </div>`;
-
-                if (state.linkedin && state.linkedin.trim() !== '') {
-                    contactHtml += `<span class="flex items-center"><i class="fab fa-linkedin mr-2 w-4 text-slate-500"></i> ${state.linkedin}</span>`;
-                }
-                if (state.github && state.github.trim() !== '') {
-                    contactHtml += `<span class="flex items-center"><i class="fab fa-github mr-2 w-4 text-slate-500"></i> ${state.github}</span>`;
-                }
-                contactHtml += `<span class="flex items-start"><i class="fas fa-map-marker-alt mr-2 w-4 mt-1 text-slate-500"></i> ${state.address}</span>`;
-                contactSection.innerHTML = contactHtml;
-
-                // Education Table Dynamic Rows
-                const tbody = document.getElementById('preview-edu-tbody');
-                if (tbody) {
-                    let html = '';
-                    
-                    if (state.qualifications && state.qualifications.length > 0) {
-                        state.qualifications.forEach(q => {
-                            // Show "Expected" in preview if ongoing
-                            const yearDisplay = q.status === 'Ongoing' ? `Exp. ${q.year}` : q.year;
-                            html += `
-                                <tr>
-                                    <td class="px-2 py-1 font-medium">${q.degree}</td>
-                                    <td class="px-2 py-1">${q.university}</td>
-                                    <td class="px-2 py-1">${yearDisplay}</td>
-                                    <td class="px-2 py-1">${q.score}</td>
-                                </tr>
-                            `;
-                        });
-                    }
-
-                    const school12 = state.edu_12th_school + 
-                        (state.edu_12th_board ? `, ${state.edu_12th_board}` : '') + 
-                        (state.edu_12th_stream ? ` (${state.edu_12th_stream})` : '');
-                    
-                    const school10 = state.edu_10th_school + (state.edu_10th_board ? `, ${state.edu_10th_board}` : '');
-
-                    html += `
-                        <tr>
-                            <td class="px-2 py-1 font-medium">Class XII / Diploma</td>
-                            <td class="px-2 py-1">${school12 || ''}</td>
-                            <td class="px-2 py-1">${state.edu_12th_year || ''}</td>
-                            <td class="px-2 py-1">${state.edu_12th_score || ''}%</td>
-                        </tr>
-                        <tr>
-                            <td class="px-2 py-1 font-medium">Class X</td>
-                            <td class="px-2 py-1">${school10 || ''}</td>
-                            <td class="px-2 py-1">${state.edu_10th_year || ''}</td>
-                            <td class="px-2 py-1">${state.edu_10th_score || ''}%</td>
-                        </tr>
-                    `;
-                    tbody.innerHTML = html;
-                }
-            },
-
-            showToast(msg, type = 'error') {
-                this.elements.toastMsg.innerText = msg;
-                this.elements.toast.className = `fixed bottom-5 right-5 text-white px-6 py-3 rounded-lg shadow-xl transform transition-all duration-300 flex items-center gap-3 z-50 ${type === 'success' ? 'bg-green-600' : 'bg-red-500'}`;
-                requestAnimationFrame(() => {
-                    this.elements.toast.classList.remove('translate-y-20', 'opacity-0');
-                });
-                setTimeout(() => {
-                    this.elements.toast.classList.add('translate-y-20', 'opacity-0');
-                }, 3000);
-            },
-
-            validateForm(formId) {
-                const form = document.getElementById(formId);
-                const inputs = form.querySelectorAll('input, textarea');
-                let valid = true;
-
-                // Phone Validation specific check
-                const phoneInput = form.querySelector('input[name="phone"]');
-                if(phoneInput) {
-                    if(phoneInput.value.length !== 10) {
-                        phoneInput.classList.add('border-red-500');
-                        this.showToast('Phone number must be exactly 10 digits');
-                        return false;
-                    }
-                }
-
-                inputs.forEach(input => {
-                    if (input.hasAttribute('required') && !input.value.trim()) {
-                        valid = false;
-                        input.classList.add('border-red-500');
-                        input.addEventListener('input', () => input.classList.remove('border-red-500'), { once: true });
-                    }
-                });
-                return valid;
-            }
-        };
-
-        /**
-         * ------------------------------------------------------------------
-         * MODULE 4: App (Controller)
-         * Responsibility: Application Logic, State Management, Initialization
-         * ------------------------------------------------------------------
-         */
-        const App = {
-            state: {
-                fullName: '', email: '', phone: '', address: '', linkedin: '', github: '', languages: '', summary: '',
-                // Array for higher edu
-                qualifications: [],
-                // Static School
-                edu_12th_school: '', edu_12th_stream: '', edu_12th_year: '', edu_12th_score: '', edu_12th_board: '',
-                edu_10th_school: '', edu_10th_board: '', edu_10th_year: '', edu_10th_score: '',
-                workExperience: '', projects: '', 
-                skills: '', certifications: '', actHob: ''
-            },
-
-            init() {
-                const saved = StorageService.load();
-                if (saved) {
-                    this.state = { ...this.state, ...saved };
-                    // Ensure qualifications is an array even if old state didn't have it
-                    if(!Array.isArray(this.state.qualifications)) this.state.qualifications = [];
-                    
-                    UIManager.populateInputs(this.state);
-                } else {
-                    // Init with one empty qualification field
-                    UIManager.addQualificationField();
-                }
-            },
-
-            navigateTo(stepIndex) {
-                if (stepIndex === UIManager.views.length - 1) { 
-                    UIManager.renderPreview(this.state);
-                }
-                UIManager.showView(stepIndex);
-            },
-
-            validateAndProceed(currentStepIndex, formId) {
-                if (UIManager.validateForm(formId)) {
-                    const newData = UIManager.getFormData(formId);
-                    this.updateState(newData);
-                    this.navigateTo(currentStepIndex + 1);
-                } else {
-                    UIManager.showToast('Please fill out all required fields.');
-                }
-            },
-
-            updateState(newData) {
-                this.state = { ...this.state, ...newData };
-                StorageService.save(this.state);
-            },
-
-            download() {
-                try {
-                    PDFService.generate(this.state);
-                    UIManager.showToast('Resume downloaded!', 'success');
-                } catch (e) {
-                    console.error(e);
-                    UIManager.showToast('Error generating PDF.');
-                }
-            },
-
-            reset() {
-                if (confirm('Clear all data and start over?')) {
-                    StorageService.clear();
-                    location.reload();
-                }
-            }
-        };
-
-        window.addEventListener('load', () => App.init());
-
-    </script>
+    <!-- MODULAR JAVASCRIPT ARCHITECTURE (loaded in dependency order) -->
+    <script src="js/storage.js"></script>
+    <script src="js/templates.js"></script>
+    <script src="js/ui-manager.js"></script>
+    <script src="js/app.js"></script>
 </body>
 </html>

@@ -1,78 +1,62 @@
-# Professional Resume Builder
+# Resume Builder
 
-A modern, client-side, single-page application (SPA) designed to help users create professional resumes effortlessly. Built with vanilla JavaScript, HTML5, and Tailwind CSS, this tool offers a seamless experience with no backend requirements, no signups, and instant PDF generation.
+Create a professional resume in minutes — no signup, no payment. Fill in your details across a few guided steps, pick one of **13 templates** grouped by style & profession, live-preview it, and download a **PDF** ready to share.
 
-## 🚀 Key Features
+Built with plain **HTML, CSS and JavaScript** (no build tools). Just open `index.html` and go.
 
--   **Privacy Focused**: No data is sent to any server. All inputs are stored locally in your browser's Session Storage.
--   **No Signup Required**: Start building your resume immediately without creating an account.
--   **Responsive Design**: A glassmorphism-inspired UI that works beautifully on desktops, tablets, and mobile devices.
--   **Dynamic Forms**: Add as many educational qualifications as you need with a flexible interface.
--   **Instant PDF Export**: Generate and download your resume as a high-quality PDF file instantly using `jsPDF`.
--   **Live State Persistence**: Your progress is saved automatically, so you won't lose your data if you refresh the page.
--   **Multi-Step Wizard**: A guided 5-step process ensures you don't miss any critical information.
+---
 
-## 🛠️ Technologies Used
+## Features
 
--   **HTML5**: Semantic structure.
--   **Tailwind CSS**: For utility-first styling and responsive design.
--   **JavaScript (ES6+)**:
-    -   Modular Architecture (`StorageService`, `PDFService`, `UIManager`, `App`).
-    -   SessionStorage for local data persistence.
--   **Font Awesome**: For iconography.
--   **jsPDF**: For client-side PDF generation.
+- **13 resume templates** grouped into 4 categories:
+  - **Professional** — Classic, Executive, Corporate, Compact
+  - **Modern** — Modern, Tech, Snapshot
+  - **Minimal** — Minimal, Simple, Elegant
+  - **Creative** — Bold, Creative, Colorful
+- **Live preview** — side-by-side on desktop: pick a template on the left, the resume re-renders instantly on the right (sticky), with ⬅➡ prev/next controls and a *Template · name · 3/13* indicator.
+- **PDF download** — the chosen template is rendered to a print-ready A4 PDF via [jsPDF](https://github.com/parallax/jsPDF).
+- **Guided 5-step form** — Personal Info → Academic Qualifications → Work Experience → Projects → Skills & Certifications, with dynamic add/remove qualification entries and input validation.
+- **Session persistence** — your data *and* selected template are saved in `sessionStorage`, so a refresh (within the session) keeps your work.
+- **Mobile-friendly** and uses the same glassmorphism + green theme across the whole app.
 
-## 📖 Usage
+---
 
-Since this is a client-side application, you can run it directly in your browser.
+## Project Structure
 
-1.  **Clone the Repository**
-    ```bash
-    git clone <repository-url>
-    cd Resume-Builder
-    ```
-
-2.  **Open the Application**
-    -   Simply double-click `index.html` to open it in your web browser.
-    -   *Optional*: You can also serve it using a local server like Live Server (VS Code extension) or Python:
-        ```bash
-        # Python 3
-        python -m http.server 8000
-        ```
-
-3.  **Build Your Resume**
-    -   **Step 1: Personal Info** - Enter your contact details and professional summary.
-    -   **Step 2: Education** - Add your academic history (Class X, XII, and higher degrees).
-    -   **Step 3: Work Experience** - Detail your professional background.
-    -   **Step 4: Projects** - Showcase your academic or personal projects.
-    -   **Step 5: Skills & Extra** - List your technical skills, certifications, and hobbies.
-    -   **Preview & Download** - Review your resume and click "Download PDF".
-
-## 📂 Project Structure
+The app is split into small, single-responsibility modules instead of one monolithic file.
 
 ```
 .
-├── index.html      # Main application entry point (HTML + JS + CSS)
-├── favicon.ico     # Browser tab icon
-├── LICENSE         # Apache 2.0 License
-└── README.md       # Project documentation
+├── index.html          # Page structure, views, forms, template picker + preview layout
+├── css/
+│   └── style.css       # Theme, template-picker, and resume-preview styles
+├── js/
+│   ├── storage.js      # Module 1: sessionStorage read/write
+│   ├── templates.js    # Module 2: all 13 templates + shared engine
+│   ├── ui-manager.js   # Module 3: views, forms, picker, preview, toasts
+│   └── app.js          # Module 4: PDF service + controller (state, navigation)
+└── favicon.ico
 ```
 
-### Code Overview (`index.html`)
+**How the template engine works:** each template is one small object. Three are hand-crafted layouts (Classic, Modern, Minimal); the rest are tiny style configs consumed by `enginePreview()` (on-screen HTML) and `engineDraw()` (jsPDF). That guarantees the preview and the downloaded PDF always match. Stylable tokens include header mode, section mode, education layout, skills layout, palette, and even font family (helvetica / times / courier).
 
-The JavaScript logic is organized into four main modules:
+---
 
-1.  **`StorageService`**: Handles saving and retrieving user data from `sessionStorage`.
-2.  **`PDFService`**: Contains logic to format and generate the PDF layout.
-3.  **`UIManager`**: Manages DOM updates, view navigation (wizard steps), dynamic form fields, and toast notifications.
-4.  **`App`**: The main controller that initializes the app and coordinates between services and the UI.
+## Using the builder
 
-## 📄 License
+1. Click **Create Resume** on the landing page and fill in the steps.
+2. On the final step, choose a template from the left panel (or use ⬅➡ under the preview).
+3. Review the live preview on the right.
+4. Hit **Download PDF**. The file is saved as `<Your_Name>_Resume.pdf`.
 
-This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENSE) file for details.
+> Loaded over a plain `file://` and from a static server alike — no build step required. External assets (Tailwind CSS, Font Awesome, jsPDF) are pulled from CDNs; an internet connection is needed for full styling/PDF export.
 
-## 👥 Credits
+---
 
--   Designed and Developed by **Suryanarayan Panda**.
--   Icons by [Font Awesome](https://fontawesome.com/).
--   PDF Generation by [jsPDF](https://github.com/parallax/jsPDF).
+## Notes
+
+- Resume data lives only in the user's browser (`sessionStorage`).
+- Empty optional sections (e.g. no work experience for freshers) are hidden automatically in both preview and PDF.
+- Validation: phone must be exactly 10 digits; required fields are marked inline.
+
+© 2024 Resume Builder — created by Suryanarayan Panda.
