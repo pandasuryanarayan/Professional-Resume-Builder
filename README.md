@@ -1,62 +1,114 @@
-# Resume Builder
+# Professional Resume Builder
 
-Create a professional resume in minutes — no signup, no payment. Fill in your details across a few guided steps, pick one of **13 templates** grouped by style & profession, live-preview it, and download a **PDF** ready to share.
+Create a polished, professional resume in minutes — no signup, no payment, no tracking. Fill in your details across guided steps, choose from **13 resume templates** grouped into 4 distinct styles, inspect the **live preview**, and download a print-ready **A4 PDF**.
 
-Built with plain **HTML, CSS and JavaScript** (no build tools). Just open `index.html` and go.
-
----
-
-## Features
-
-- **13 resume templates** grouped into 4 categories:
-  - **Professional** — Classic, Executive, Corporate, Compact
-  - **Modern** — Modern, Tech, Snapshot
-  - **Minimal** — Minimal, Simple, Elegant
-  - **Creative** — Bold, Creative, Colorful
-- **Live preview** — side-by-side on desktop: pick a template on the left, the resume re-renders instantly on the right (sticky), with ⬅➡ prev/next controls and a *Template · name · 3/13* indicator.
-- **PDF download** — the chosen template is rendered to a print-ready A4 PDF via [jsPDF](https://github.com/parallax/jsPDF).
-- **Guided 5-step form** — Personal Info → Academic Qualifications → Work Experience → Projects → Skills & Certifications, with dynamic add/remove qualification entries and input validation.
-- **Session persistence** — your data *and* selected template are saved in `sessionStorage`, so a refresh (within the session) keeps your work.
-- **Mobile-friendly** and uses the same glassmorphism + green theme across the whole app.
+Built with modern **HTML5, Tailwind CSS, Font Awesome, and Vanilla JavaScript** (no build step or server required). Just open `index.html` in any modern web browser.
 
 ---
 
-## Project Structure
+## ✨ Key Features
 
-The app is split into small, single-responsibility modules instead of one monolithic file.
+### 📱 Optimized Mobile Experience
+- **3-Line Hamburger Category Menu**: Clean, accessible hamburger icon button (`fas fa-bars`) near the *"Choose a Template"* header that opens a stylish dropdown for the 4 core design styles (**Professional**, **Modern**, **Minimal**, and **Creative**).
+- **Active Category Indicator**: Displays the currently active category name and template count directly below the title.
+- **Horizontal Swipe Cards Carousel**: Template designs are presented in a compact, touch-friendly horizontal swipe deck (`scroll-snap`) with miniature layout previews, template badges, and active state highlights.
+- **Instant Above-the-Fold Resume Preview**: Eliminates long vertical scrolling by keeping the template picker compact, showing the live resume preview immediately below.
+
+### 💻 Seamless Desktop Workspace
+- **Full-Height Vertical Template Sidebar**: Takes advantage of the entire vertical space matching the resume preview column, cleanly displaying templates with a modern custom scrollbar when needed.
+- **Sticky Live Preview & Controls**: Side-by-side layout where selecting any template instantly re-renders the live document on the right with sticky positioning and ⬅️ ➡️ template cycling controls (*Template · Name · X/13*).
+
+### 🎨 13 Resume Templates Across 4 Categories
+1. **Professional** (4 Templates)
+   - `Classic`: Traditional single-column layout with an academic qualifications table.
+   - `Executive`: Premium dark header band with gold accents and serif typography.
+   - `Corporate`: Centered blue branding tailored for managers and corporate roles.
+   - `Compact`: Dense, structured one-page layout for seasoned professionals.
+2. **Modern** (3 Templates)
+   - `Modern`: Two-column layout with dark emerald sidebar and clean main section.
+   - `Tech`: Monospace developer aesthetic with cyan accent lines and skill badges.
+   - `Snapshot`: Split header with right-aligned contact details and bold indigo rules.
+3. **Minimal** (3 Templates)
+   - `Minimal`: Clean, airy single-column design with generous spacing.
+   - `Simple`: Monochrome black & white layout focused on straightforward clarity.
+   - `Elegant`: Centered serif typography with fine gold hairline dividers.
+4. **Creative** (3 Templates)
+   - `Bold`: Oversized name header with rose accents for high visual impact.
+   - `Creative`: Vibrant purple band with an orange timeline for designers and creators.
+   - `Colorful`: Multi-color section headers for a lively, easy-to-scan document.
+
+### 📄 Accurate PDF Export
+- Direct client-side PDF generation using [jsPDF](https://github.com/parallax/jsPDF).
+- Each template provides both an on-screen HTML preview and a matching jsPDF drawing routine to guarantee **1:1 visual fidelity** between preview and download.
+- Proper page wrapping, safe percentage and CGPA formatting, and multi-line bullet preservation.
+
+### 🔒 Client-Side & Privacy First
+- **No Login / No Tracking**: All data remains local in the browser.
+- **Session Persistence**: State is automatically saved in `sessionStorage`, allowing page refreshes without data loss.
+- **Dynamic Academic Fields**: Easily add, edit, or remove multiple degrees (UG, PG, diplomas) alongside Class XII and Class X records.
+
+---
+
+## 📁 Project Architecture
+
+The codebase is organized into modular single-responsibility components:
 
 ```
-.
-├── index.html          # Page structure, views, forms, template picker + preview layout
+Professional-Resume-Builder/
+├── index.html          # Semantic HTML structure, forms, mobile swipe deck, & preview
+├── favicon.ico         # Application icon
+├── README.md           # Documentation
 ├── css/
-│   └── style.css       # Theme, template-picker, and resume-preview styles
-├── js/
-│   ├── storage.js      # Module 1: sessionStorage read/write
-│   ├── templates.js    # Module 2: all 13 templates + shared engine
-│   ├── ui-manager.js   # Module 3: views, forms, picker, preview, toasts
-│   └── app.js          # Module 4: PDF service + controller (state, navigation)
-└── favicon.ico
+│   └── style.css       # Glassmorphic panels, thumbnail previews, swipe cards, scrollbars
+└── js/
+    ├── storage.js      # Module 1: Session storage read/write/clear helpers
+    ├── templates.js    # Module 2: Template definitions, layout engine, HTML & jsPDF draw methods
+    ├── ui-manager.js   # Module 3: View transitions, hamburger menu, swipe cards, DOM rendering
+    └── app.js          # Module 4: PDFService + controller (state, event handling, navigation)
 ```
 
-**How the template engine works:** each template is one small object. Three are hand-crafted layouts (Classic, Modern, Minimal); the rest are tiny style configs consumed by `enginePreview()` (on-screen HTML) and `engineDraw()` (jsPDF). That guarantees the preview and the downloaded PDF always match. Stylable tokens include header mode, section mode, education layout, skills layout, palette, and even font family (helvetica / times / courier).
+### How the Template Engine Works:
+- Templates are defined as modular objects with `id`, `name`, `category`, `desc`, `preview(state)`, and `draw(doc, state)`.
+- Handcrafted templates (`classic`, `modern`, `minimal`) handle specialized layouts (e.g. sidebar and timeline).
+- Engine-driven templates configure styling tokens (header mode, section mode, education mode, font family, color palettes) executed by `enginePreview()` and `engineDraw()`.
 
 ---
 
-## Using the builder
+## 🚀 Getting Started
 
-1. Click **Create Resume** on the landing page and fill in the steps.
-2. On the final step, choose a template from the left panel (or use ⬅➡ under the preview).
-3. Review the live preview on the right.
-4. Hit **Download PDF**. The file is saved as `<Your_Name>_Resume.pdf`.
+1. **Clone or Download the Repository**:
+   ```bash
+   git clone https://github.com/pandasuryanarayan/Professional-Resume-Builder.git
+   cd Professional-Resume-Builder
+   ```
 
-> Loaded over a plain `file://` and from a static server alike — no build step required. External assets (Tailwind CSS, Font Awesome, jsPDF) are pulled from CDNs; an internet connection is needed for full styling/PDF export.
+2. **Open the Application**:
+   - Double-click `index.html` or open it with your favorite browser.
+   - Alternatively, serve it locally:
+     ```bash
+     python3 -m http.server 8000
+     # Visit http://localhost:8000 in your browser
+     ```
 
 ---
 
-## Notes
+## 📝 User Workflow
 
-- Resume data lives only in the user's browser (`sessionStorage`).
-- Empty optional sections (e.g. no work experience for freshers) are hidden automatically in both preview and PDF.
-- Validation: phone must be exactly 10 digits; required fields are marked inline.
+1. Click **Create Resume** on the landing page.
+2. Fill in the guided steps:
+   - **Personal Information**: Name, contact, links, languages, address, and summary.
+   - **Academic Qualifications**: Dynamic university qualifications + Class XII and Class X.
+   - **Work Experience**: Jobs, internships, or freelance roles (optional).
+   - **Projects**: Academic and personal projects.
+   - **Skills & Certifications**: Technical skills, certifications, and hobbies.
+3. Click **Generate Resume** to reach the review view.
+4. Pick a template via the mobile swipe cards or desktop sidebar (or use the category filter menu).
+5. Click **Download PDF** to save your resume as `<Your_Name>_Resume.pdf`.
 
-© 2024 Resume Builder — created by Suryanarayan Panda.
+---
+
+## 📜 License
+
+Distributed under the Apache License 2.0. See `LICENSE` for details.
+
+© 2024–2026 Professional Resume Builder — Created by **Suryanarayan Panda**.

@@ -278,11 +278,56 @@
 
                 <div class="lg:grid lg:grid-cols-[320px_minmax(0,1fr)] lg:gap-8 lg:items-start">
 
-                    <!-- LEFT: Template Picker (grouped by category) -->
-                    <aside class="mb-8 lg:mb-0">
-                        <h3 class="text-lg font-bold text-slate-800 mb-4"><i class="fas fa-palette mr-2 text-green-600"></i>Choose a Template</h3>
-                        <div id="template-picker" class="space-y-5 lg:max-h-[74vh] lg:overflow-y-auto lg:pr-2 lg:pb-2">
-                            <!-- Template cards injected by JS -->
+                    <!-- Template Picker: Mobile (Header + Hamburger + Selected Category Info + Swipe Cards) & Desktop (Sidebar) -->
+                    <aside class="mb-6 lg:mb-0">
+                        <!-- Top Header with title and 3-lines Hamburger button on mobile -->
+                        <div class="flex items-center justify-between mb-1.5 relative">
+                            <h3 class="text-base sm:text-lg font-bold text-slate-800 flex items-center">
+                                <i class="fas fa-palette mr-2 text-green-600"></i>Choose a Template
+                            </h3>
+
+                            <!-- 3 Horizontal Lines Hamburger Menu Button (Mobile) -->
+                            <div class="lg:hidden relative">
+                                <button id="hamburger-cat-btn" type="button" onclick="UIManager.toggleCategoryMenu(event)" class="w-9 h-9 rounded-lg bg-white hover:bg-slate-100 text-slate-700 border border-slate-300 shadow-sm focus:outline-none transition flex items-center justify-center text-sm" title="Select Category">
+                                    <i class="fas fa-bars text-base text-slate-700"></i>
+                                </button>
+
+                                <!-- Category Dropdown / Modal Menu -->
+                                <div id="mobile-category-menu" class="hidden absolute right-0 top-full mt-2 w-56 bg-white rounded-xl shadow-2xl border border-slate-200 py-2 z-50 fade-in">
+                                    <div class="px-3.5 py-1.5 border-b border-slate-100 text-[10px] font-bold uppercase tracking-wider text-slate-400 flex items-center justify-between">
+                                        <span>Categories</span>
+                                        <span>4 Styles</span>
+                                    </div>
+                                    <div id="mobile-category-menu-items" class="py-1">
+                                        <!-- Category menu items dynamically rendered -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Writing below text 'Choose a Template' showing what category is currently selected (Mobile) -->
+                        <div id="mobile-selected-category-info" class="lg:hidden text-xs text-slate-500 mb-3 flex items-center gap-1.5 font-medium">
+                            <span class="text-slate-500">Category:</span>
+                            <span id="mobile-selected-cat-name" class="inline-flex items-center font-bold text-green-700 bg-green-50 px-2 py-0.5 rounded-md border border-green-200">
+                                <i class="fas fa-briefcase mr-1 text-green-600 text-xs"></i>Professional
+                            </span>
+                            <span id="mobile-selected-cat-count" class="text-[11px] text-slate-400">(4 templates)</span>
+                        </div>
+
+                        <!-- Mobile Swipe Cards Carousel Container (Compact horizontal swipe deck) -->
+                        <div class="lg:hidden mobile-swipe-wrapper mb-4">
+                            <div id="mobile-swipe-cards" class="mobile-swipe-cards flex gap-3 overflow-x-auto pb-2 pt-1 px-1 scroll-smooth snap-x snap-mandatory">
+                                <!-- Swipe cards injected by JS -->
+                            </div>
+                            <div class="flex justify-between items-center text-[11px] text-slate-500 px-1 mt-1 font-medium">
+                                <span><i class="fas fa-arrows-left-right text-green-600 mr-1"></i> Swipe cards to explore designs</span>
+                                <span id="mobile-swipe-count" class="text-slate-600 bg-slate-100 px-2 py-0.5 rounded-full font-semibold">4 templates</span>
+                            </div>
+                        </div>
+
+                        <!-- Desktop Sidebar Template Picker (shown on lg) -->
+                        <div id="template-picker" class="hidden lg:block space-y-5 lg:overflow-y-auto lg:pr-2 lg:pb-2 lg:max-h-[1050px]">
+                            <!-- Desktop Template cards injected by JS -->
                         </div>
                     </aside>
 
