@@ -220,6 +220,26 @@ textarea::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
     overflow: hidden;
 }
 
+/* Custom scrollbar for desktop template picker */
+#template-picker {
+    scrollbar-width: thin;
+    scrollbar-color: #cbd5e1 #f8fafc;
+}
+#template-picker::-webkit-scrollbar {
+    width: 5px;
+}
+#template-picker::-webkit-scrollbar-track {
+    background: #f8fafc;
+    border-radius: 4px;
+}
+#template-picker::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 4px;
+}
+#template-picker::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+}
+
 /* Caption + prev/next controls under the live preview */
 .tpl-caption {
     display: inline-flex;
@@ -304,17 +324,107 @@ textarea::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
     box-shadow: 0 14px 0 #e2e8f0, 0 28px 0 #e2e8f0, 0 42px 0 #e2e8f0;
 }
 
+/* Utility: Hide scrollbar */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* ================================================================
+   Mobile Template Picker & Swipe Cards
+   ================================================================ */
+.mobile-swipe-cards {
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+}
+.mobile-swipe-cards::-webkit-scrollbar {
+    height: 4px;
+}
+.mobile-swipe-cards::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 4px;
+}
+
+.tpl-swipe-card {
+    flex: 0 0 148px;
+    scroll-snap-align: start;
+    background: #ffffff;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    overflow: hidden;
+    text-align: left;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    position: relative;
+    box-shadow: 0 2px 6px rgba(15, 23, 42, 0.06);
+}
+.tpl-swipe-card:hover {
+    border-color: #94a3b8;
+    transform: translateY(-2px);
+}
+.tpl-swipe-card:active {
+    transform: scale(0.98);
+}
+.tpl-swipe-card.selected {
+    border-color: #16a34a;
+    box-shadow: 0 0 0 2px rgba(22, 163, 74, 0.25), 0 8px 18px rgba(22, 163, 74, 0.15);
+    background: #f0fdf4;
+}
+.tpl-swipe-card .tpl-thumb {
+    height: 72px;
+    border-bottom: 1px solid #eef2f7;
+}
+.tpl-swipe-card-body {
+    padding: 8px 10px;
+}
+.tpl-swipe-card .tpl-name {
+    font-size: 13px;
+    font-weight: 700;
+    color: #1e293b;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.tpl-swipe-card.selected .tpl-name {
+    color: #15803d;
+}
+.tpl-swipe-card .tpl-desc {
+    font-size: 10.5px;
+    color: #64748b;
+    line-height: 1.3;
+    margin-top: 2px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+.tpl-swipe-selected-tag {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    background: #16a34a;
+    color: #ffffff;
+    font-size: 9px;
+    font-weight: 700;
+    padding: 2px 6px;
+    border-radius: 999px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    z-index: 10;
+}
+
 /* Thumbnail colours per template */
-.tpl-card.executive, .tpl-card-row.executive { --tp: #0f172a; --ta: #b45309; }
-.tpl-card.corporate, .tpl-card-row.corporate { --tp: #1e3a8a; --ta: #2563eb; }
-.tpl-card.compact, .tpl-card-row.compact { --tp: #134e4a; --ta: #0d9488; }
-.tpl-card.tech, .tpl-card-row.tech { --tp: #0f172a; --ta: #06b6d4; }
-.tpl-card.snapshot, .tpl-card-row.snapshot { --tp: #312e81; --ta: #6366f1; }
-.tpl-card.simple, .tpl-card-row.simple { --tp: #111827; --ta: #475569; }
-.tpl-card.elegant, .tpl-card-row.elegant { --tp: #1c1917; --ta: #a16207; }
-.tpl-card.bold, .tpl-card-row.bold { --tp: #111827; --ta: #e11d48; }
-.tpl-card.creative, .tpl-card-row.creative { --tp: #4c1d95; --ta: #f59e0b; }
-.tpl-card.colorful, .tpl-card-row.colorful { --tp: #0f172a; --ta: #ec4899; }
+.tpl-card.executive, .tpl-card-row.executive, .tpl-swipe-card.executive { --tp: #0f172a; --ta: #b45309; }
+.tpl-card.corporate, .tpl-card-row.corporate, .tpl-swipe-card.corporate { --tp: #1e3a8a; --ta: #2563eb; }
+.tpl-card.compact, .tpl-card-row.compact, .tpl-swipe-card.compact { --tp: #134e4a; --ta: #0d9488; }
+.tpl-card.tech, .tpl-card-row.tech, .tpl-swipe-card.tech { --tp: #0f172a; --ta: #06b6d4; }
+.tpl-card.snapshot, .tpl-card-row.snapshot, .tpl-swipe-card.snapshot { --tp: #312e81; --ta: #6366f1; }
+.tpl-card.simple, .tpl-card-row.simple, .tpl-swipe-card.simple { --tp: #111827; --ta: #475569; }
+.tpl-card.elegant, .tpl-card-row.elegant, .tpl-swipe-card.elegant { --tp: #1c1917; --ta: #a16207; }
+.tpl-card.bold, .tpl-card-row.bold, .tpl-swipe-card.bold { --tp: #111827; --ta: #e11d48; }
+.tpl-card.creative, .tpl-card-row.creative, .tpl-swipe-card.creative { --tp: #4c1d95; --ta: #f59e0b; }
+.tpl-card.colorful, .tpl-card-row.colorful, .tpl-swipe-card.colorful { --tp: #0f172a; --ta: #ec4899; }
 
 /* ================================================================
    Resume Preview Templates
@@ -637,3 +747,37 @@ textarea::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
 .tpl-executive, .tpl-elegant { font-family: 'Times New Roman', Times, serif; }
 .tpl-tech { font-family: 'Courier New', Courier, monospace; }
 .tpl-tech .hd-line h1 { letter-spacing: 2px; }
+
+/* Responsive adjustments for mobile resume preview */
+@media (max-width: 640px) {
+    #preview-paper {
+        min-height: auto;
+        margin-bottom: 1.5rem;
+        border-radius: 6px;
+    }
+    .tpl-classic, .tpl-minimal, .tpl-executive, .tpl-corporate,
+    .tpl-compact, .tpl-tech, .tpl-snapshot, .tpl-simple,
+    .tpl-elegant, .tpl-bold, .tpl-creative, .tpl-colorful {
+        padding: 16px 14px;
+    }
+    .tpl-classic-name, .hd-band h1, .hd-line h1, .hd-accent h1,
+    .hd-plain h1, .hd-center h1, .tpl-minimal-name {
+        font-size: 19px !important;
+    }
+    .tpl-modern {
+        flex-direction: column;
+    }
+    .tpl-modern-side {
+        width: 100%;
+        padding: 16px 14px;
+        border-top: none;
+        border-bottom: 3px solid #16a34a;
+    }
+    .tpl-modern-main {
+        padding: 16px 14px;
+    }
+    .hd-band {
+        margin: -16px -14px 14px;
+        padding: 16px 14px 12px;
+    }
+}
