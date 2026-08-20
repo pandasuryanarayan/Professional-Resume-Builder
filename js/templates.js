@@ -40,12 +40,20 @@ function eduRows(state) {
         .map((part, i) => (i === 2 ? `(${part})` : part))
         .join(', ');
     if (state.edu_12th_school) {
-        rows.push({ degree: 'Class XII / Diploma', institute: s12, year: state.edu_12th_year, score: state.edu_12th_score + '%' });
+        let score12 = state.edu_12th_score ? String(state.edu_12th_score).trim() : '';
+        if (score12 && !score12.endsWith('%') && !score12.toLowerCase().includes('cgpa')) {
+            score12 += '%';
+        }
+        rows.push({ degree: 'Class XII / Diploma', institute: s12, year: state.edu_12th_year, score: score12 });
     }
 
     const s10 = [state.edu_10th_school, state.edu_10th_board].filter(Boolean).join(', ');
     if (state.edu_10th_school) {
-        rows.push({ degree: 'Class X', institute: s10, year: state.edu_10th_year, score: state.edu_10th_score + '%' });
+        let score10 = state.edu_10th_score ? String(state.edu_10th_score).trim() : '';
+        if (score10 && !score10.endsWith('%') && !score10.toLowerCase().includes('cgpa')) {
+            score10 += '%';
+        }
+        rows.push({ degree: 'Class X', institute: s10, year: state.edu_10th_year, score: score10 });
     }
 
     return rows;
@@ -765,7 +773,7 @@ const modern = {
             ? `<div class="tpl-modern-item"><span class="tpl-modern-label">${label}</span><p>${icon ? `<i class="${icon}"></i>` : ''}${esc(value)}</p></div>`
             : '';
         const sideBlock = (title, value) => value
-            ? `<div class="tpl-modern-block"><h2>${title}</h2><p>${esc(value)}</p></div>`
+            ? `<div class="tpl-modern-block"><h2>${title}</h2><div class="tpl-pre">${esc(value)}</div></div>`
             : '';
 
         const rows = eduRows(state);

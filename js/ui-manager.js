@@ -174,9 +174,68 @@ const UIManager = {
         }
     },
 
+    categoryIcons: {
+        'Professional': 'fa-briefcase',
+        'Modern': 'fa-rocket',
+        'Minimal': 'fa-feather',
+        'Creative': 'fa-paint-brush'
+    },
+    currentCategory: 'Professional',
+
     /* --- Template Picker & Preview --- */
 
+    toggleCategoryMenu(e) {
+        if (e) e.stopPropagation();
+        const menu = document.getElementById('mobile-category-menu');
+        if (menu) {
+            menu.classList.toggle('hidden');
+        }
+    },
+
+    closeCategoryMenu() {
+        const menu = document.getElementById('mobile-category-menu');
+        if (menu) {
+            menu.classList.add('hidden');
+        }
+    },
+
+    selectCategory(categoryName) {
+        this.currentCategory = categoryName;
+        this.closeCategoryMenu();
+
+        // Check if current template is in this category
+        const currentTpl = getTemplate(App.state.selectedTemplate);
+        if (currentTpl.category !== categoryName) {
+            const firstInCat = Templates.find(t => t.category === categoryName);
+            if (firstInCat) {
+                App.selectTemplate(firstInCat.id);
+                return;
+            }
+        }
+
+        this.renderMobileCategoryMenu(categoryName);
+        this.renderMobileSwipeCards(App.state.selectedTemplate, categoryName);
+        this.updateSelectedCategoryInfo(categoryName);
+    },
+
     renderTemplatePicker(selectedId) {
+        const active = getTemplate(selectedId);
+        if (active && active.category) {
+            this.currentCategory = active.category;
+        }
+        const index = Templates.findIndex(t => t.id === selectedId);
+
+        this.renderDesktopTemplatePicker(selectedId);
+        this.renderMobileCategoryMenu(this.currentCategory);
+        this.renderMobileSwipeCards(selectedId, this.currentCategory);
+        this.updateSelectedCategoryInfo(this.currentCategory);
+        this.updateTemplateCaption(active.name, index);
+    },
+
+    renderDesktopTemplatePicker(selectedId) {
+        const picker = this.elements.templatePicker || document.getElementById('template-picker');
+        if (!picker) return;
+
         const thumb = {
             executive: 'band', creative: 'band',
             corporate: 'center', elegant: 'center',
@@ -184,9 +243,6 @@ const UIManager = {
             tech: 'line', colorful: 'line',
             bold: 'bar', snapshot: 'split'
         };
-
-        const index = Templates.findIndex(t => t.id === selectedId);
-        const active = getTemplate(selectedId);
 
         const card = (t) => `
             <button type="button" data-template="${t.id}" onclick="App.selectTemplate('${t.id}')"
@@ -198,7 +254,7 @@ const UIManager = {
                 </div>
             </button>`;
 
-        this.elements.templatePicker.innerHTML = CATEGORIES.map(cat => {
+        picker.innerHTML = CATEGORIES.map(cat => {
             const list = Templates.filter(t => t.category === cat);
             if (!list.length) return '';
             return `
@@ -210,8 +266,86 @@ const UIManager = {
                     <div class="space-y-2.5">${list.map(card).join('')}</div>
                 </div>`;
         }).join('');
+    },
 
-        this.updateTemplateCaption(active.name, index);
+    renderMobileCategoryMenu(activeCategory) {
+        const container = document.getElementById('mobile-category-menu-items');
+        if (!container) return;
+
+        container.innerHTML = CATEGORIES.map(cat => {
+            const isActive = cat === activeCategory;
+            const icon = this.categoryIcons[cat] || 'fa-folder';
+            const count = Templates.filter(t => t.category === cat).length;
+            return `
+                <button type="button" onclick="UIManager.selectCategory('${cat}')"
+                        class="cat-menu-item w-full text-left px-3.5 py-2.5 text-sm font-medium transition flex items-center justify-between ${isActive ? 'bg-green-50 text-green-700 font-bold' : 'text-slate-700 hover:bg-slate-50'}">
+                    <span class="flex items-center">
+                        <i class="fas ${icon} mr-2.5 ${isActive ? 'text-green-600' : 'text-slate-400'} w-4 text-center"></i>
+                        ${cat}
+                    </span>
+                    <div class="flex items-center gap-2">
+                        <span class="text-xs ${isActive ? 'bg-green-100 text-green-800 font-bold' : 'bg-slate-100 text-slate-600'} px-2 py-0.5 rounded-full">${count}</span>
+                        ${isActive ? '<i class="fas fa-check text-green-600 text-xs"></i>' : ''}
+                    </div>
+                </button>
+            `;
+        }).join('');
+    },
+
+    renderMobileSwipeCards(selectedId, category) {
+        const container = document.getElementById('mobile-swipe-cards');
+        if (!container) return;
+
+        const thumb = {
+            executive: 'band', creative: 'band',
+            corporate: 'center', elegant: 'center',
+            compact: 'solid', simple: 'solid',
+            tech: 'line', colorful: 'line',
+            bold: 'bar', snapshot: 'split'
+        };
+
+        const list = Templates.filter(t => t.category === category);
+        const countEl = document.getElementById('mobile-swipe-count');
+        if (countEl) {
+            countEl.innerText = `${list.length} template${list.length > 1 ? 's' : ''}`;
+        }
+
+        container.innerHTML = list.map(t => {
+            const isSelected = t.id === selectedId;
+            return `
+                <div data-template="${t.id}" onclick="App.selectTemplate('${t.id}')"
+                     class="tpl-swipe-card ${t.id} ${isSelected ? 'selected' : ''}">
+                    ${isSelected ? '<span class="tpl-swipe-selected-tag"><i class="fas fa-check"></i> Active</span>' : ''}
+                    <div class="tpl-thumb ${thumb[t.id] || t.id}"></div>
+                    <div class="tpl-swipe-card-body">
+                        <div class="tpl-name">${t.name}</div>
+                        <div class="tpl-desc">${t.desc}</div>
+                    </div>
+                </div>
+            `;
+        }).join('');
+
+        // Smooth scroll to selected card
+        setTimeout(() => {
+            const selectedCard = container.querySelector(`.tpl-swipe-card[data-template="${selectedId}"]`);
+            if (selectedCard) {
+                selectedCard.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+            }
+        }, 60);
+    },
+
+    updateSelectedCategoryInfo(category) {
+        const nameEl = document.getElementById('mobile-selected-cat-name');
+        const countEl = document.getElementById('mobile-selected-cat-count');
+        const count = Templates.filter(t => t.category === category).length;
+        const icon = this.categoryIcons[category] || 'fa-folder';
+
+        if (nameEl) {
+            nameEl.innerHTML = `<i class="fas ${icon} mr-1 text-green-600 text-xs"></i>${category}`;
+        }
+        if (countEl) {
+            countEl.innerText = `(${count} template${count > 1 ? 's' : ''})`;
+        }
     },
 
     updateTemplateCaption(name, index) {
@@ -266,3 +400,21 @@ const UIManager = {
         return valid;
     }
 };
+
+// Global click listener to close mobile category dropdown when clicking outside
+document.addEventListener('click', (e) => {
+    const menu = document.getElementById('mobile-category-menu');
+    const btn = document.getElementById('hamburger-cat-btn');
+    if (menu && !menu.classList.contains('hidden')) {
+        if (!menu.contains(e.target) && (!btn || !btn.contains(e.target))) {
+            menu.classList.add('hidden');
+        }
+    }
+});
+
+// Escape key listener to close category menu
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+        UIManager.closeCategoryMenu();
+    }
+});
