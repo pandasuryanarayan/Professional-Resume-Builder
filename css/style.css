@@ -1,4 +1,4 @@
-/* ================================================================ */
+/* ================================================================
    Resume Builder — Global Styles
    Theme: Glassmorphism panel + Green accent + Slate neutrals
    ================================================================ */
@@ -94,7 +94,7 @@ textarea::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
     color: #1e293b;
 }
 
-/* ================================================================ */
+/* ================================================================
    Template Picker
    ================================================================ */
 .tpl-card {
@@ -171,7 +171,7 @@ textarea::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
     box-shadow: 0 14px 0 #e2e8f0, 0 28px 0 #e2e8f0, 0 42px 0 #e2e8f0, 0 56px 0 #e2e8f0;
 }
 
-/* ================================================================ */
+/* ================================================================
    Template Picker: Category Groupings
    ================================================================ */
 .tpl-cat-heading {
@@ -357,7 +357,7 @@ textarea::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
 .no-scrollbar::-webkit-scrollbar { display: none; }
 .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
-/* ================================================================ */
+/* ================================================================
    Mobile Template Picker & Swipe Cards
    ================================================================ */
 .mobile-swipe-cards {
@@ -455,7 +455,7 @@ textarea::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
 .tpl-card.creative, .tpl-card-row.creative, .tpl-swipe-card.creative { --tp: #4c1d95; --ta: #f59e0b; }
 .tpl-card.colorful, .tpl-card-row.colorful, .tpl-swipe-card.colorful { --tp: #0f172a; --ta: #ec4899; }
 
-/* ================================================================ */
+/* ================================================================
    Resume Preview Templates
    ================================================================ */
 #preview-paper {
