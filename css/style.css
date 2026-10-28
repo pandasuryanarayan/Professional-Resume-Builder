@@ -1,4 +1,4 @@
-/* ================================================================
+/* ================================================================ */
    Resume Builder — Global Styles
    Theme: Glassmorphism panel + Green accent + Slate neutrals
    ================================================================ */
@@ -37,6 +37,56 @@ textarea::-webkit-scrollbar-track { background: #f1f1f1; }
 textarea::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
 textarea::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
 
+/* Patti strip: the promo banner pinned above the app panel */
+.patti {
+    width: 100%;
+    max-width: 56rem;
+    margin: 0 auto 0.75rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 8px 14px;
+    padding: 10px 16px;
+    border-radius: 12px;
+    background: linear-gradient(90deg, #0f172a 0%, #14532d 58%, #16a34a 100%);
+    color: #f8fafc;
+    font-size: 13.5px;
+    font-weight: 500;
+    line-height: 1.4;
+    text-align: center;
+    box-shadow: 0 6px 18px rgba(15, 23, 42, 0.18);
+}
+.patti-text i {
+    color: #86efac;
+    margin-right: 6px;
+}
+.patti-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255, 255, 255, 0.14);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 6px 13px;
+    border-radius: 999px;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+.patti-link:hover {
+    background: rgba(255, 255, 255, 0.26);
+    transform: translateY(-1px);
+}
+@media (max-width: 640px) {
+    .patti {
+        font-size: 12.5px;
+        padding: 9px 12px;
+    }
+}
+
 /* Indian Context Highlights */
 .section-header {
     border-left: 4px solid #16a34a;
@@ -44,7 +94,7 @@ textarea::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
     color: #1e293b;
 }
 
-/* ================================================================
+/* ================================================================ */
    Template Picker
    ================================================================ */
 .tpl-card {
@@ -121,7 +171,7 @@ textarea::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
     box-shadow: 0 14px 0 #e2e8f0, 0 28px 0 #e2e8f0, 0 42px 0 #e2e8f0, 0 56px 0 #e2e8f0;
 }
 
-/* ================================================================
+/* ================================================================ */
    Template Picker: Category Groupings
    ================================================================ */
 .tpl-cat-heading {
@@ -307,7 +357,7 @@ textarea::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
 .no-scrollbar::-webkit-scrollbar { display: none; }
 .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
-/* ================================================================
+/* ================================================================ */
    Mobile Template Picker & Swipe Cards
    ================================================================ */
 .mobile-swipe-cards {
@@ -405,7 +455,7 @@ textarea::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
 .tpl-card.creative, .tpl-card-row.creative, .tpl-swipe-card.creative { --tp: #4c1d95; --ta: #f59e0b; }
 .tpl-card.colorful, .tpl-card-row.colorful, .tpl-swipe-card.colorful { --tp: #0f172a; --ta: #ec4899; }
 
-/* ================================================================
+/* ================================================================ */
    Resume Preview Templates
    ================================================================ */
 #preview-paper {
